@@ -76,21 +76,22 @@
                 </li>
               </ul>
               <div class="header_menu_footer">
-                <a class="header_util_container header_search">
+                <div class="header_util_container header_search" @click="isSearchActive = true" v-click-outside="() => {isSearchActive = false}">
                   <img
                     svg-inline
                     class="icon header_util_img svg-stroke-color"
                     src="@/assets/icons/search.svg"
                     alt="example"
+                    @click="search()"
                   />
-                  <span class="header_util_style"> Поиск </span>
-                </a>
+                  <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="search()">
+                </div>
                 <div class="header_menu_account-lang">
                   <router-link to="/account" class="header_login_wrapper" v-if="isLoggedIn">
-                    <img src="@/static/images/profile-mini.png" />
+                    <img :src="user.avatar" />
                     <div class="header_login">
-                      <span> Александр </span>
-                      <p>136 ₽</p>
+                      <span> {{ user.name }} </span>
+                      <p>{{ user.balance }}</p>
                     </div>
                   </router-link>
                   <div class="header_menu_log login" v-else>
@@ -221,6 +222,7 @@ export default {
       localStorage.removeItem('auth_token');
       this.removeUser();
       this.getParticipants();
+      this.$router.push('/');
     },
 
     toggleMenu() {

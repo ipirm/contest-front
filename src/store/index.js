@@ -79,9 +79,9 @@ export default new Vuex.Store({
 
 			let res;
 			if (state.user) {
-				res = await api.get('api/concerts/concertUsers/1' + (query ? `?sort_by=${query}` : ''));
+				res = await api.get(`api/concerts/concertUsers/1?limit=15&page=${state.page + 1}` + (query ? `&sort_by=${query}` : ''));
 			} else {
-				res = await api.get('api/concerts/concertUsersWithOutAuth/1' + (query ? `?sort_by=${query}` : ''));
+				res = await api.get(`api/concerts/concertUsersWithOutAuth/1?limit=15&page=${state.page + 1}` + (query ? `&sort_by=${query}` : ''));
 			}
 			commit('setParticipants', res.data);
 		},
@@ -124,7 +124,8 @@ export default new Vuex.Store({
 
 			await api.postFormData('api/participation', formData)
 				.then(res => {
-					if (res.status === 201) this._vm.$toasted.error('Вы уже участвуете на данном концерце');
+					console.log(res);
+					if (res.data === 'This user exists in 1 concert') this._vm.$toasted.error('Вы уже участвуете на данном концерце');
 					else {
 						this._vm.$toasted.success('После модерации мы сообщим вам о вашем статусе участия');
 						dispatch('getParticipants', state.lastQuery);

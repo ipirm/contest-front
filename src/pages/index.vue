@@ -118,11 +118,11 @@
           <div class="participates_util_wrapper">
             <p class="participates_util_title style_text" v-t="'participants.participants'" />
             <div class="description_text_stata style_text">
-              <div class="description_text_stata_column">
+              <div class="description_text_stata_column" v-if="participants">
                 <span> {{ participants.participations }} </span>
                 <p v-t="'participants.total-participants'" />
               </div>
-              <div class="description_text_stata_column">
+              <div class="description_text_stata_column" v-if="participants">
                 <span> {{ participants.likes }} </span>
                 <p v-t="'participants.voted'" />
               </div>
@@ -168,7 +168,7 @@
             />
             <div class="participates_item">
               <div class="participates_item_img" @click="showPhoto(i)">
-                <img :src="item.images[0].url" :alt="item.user.name + ' ' + item.user.last_name">
+                <img v-lazy="item.images[0].url" :alt="item.user.name + ' ' + item.user.last_name">
               </div>
               <div
                 class="participates_item_header"
@@ -186,13 +186,13 @@
                       <template v-for="(like, k) in item.user.likes">
                         <img
                           :key="k"
-                          v-if="k <= 4"
+                          v-if="k < 4"
                           :src="like.avatar"
                           :alt="like.name"
                         />
                       </template>
                     </div>
-                    <a href="#" @click.prevent="showPopUp(i)">... {{ i > 1 ? $t('tooltips.likes.also') + (i + 1) : $t('tooltips.likes.more') }}</a>
+                    <a href="#" @click.prevent="showPopUp(i)">... {{ item.likesCount > 4 ? $t('tooltips.likes.also') + ' ' + (item.likesCount - 4) : $t('tooltips.likes.more') }}</a>
                   </div>
                 </div>
                 <div v-if="user && item.user.id === user.id" class="leader">
@@ -396,7 +396,9 @@ export default {
       }
 
       if (this.files.length) {
-        await this.participate(this.files);
+        await this.participate(this.files).then(() => {
+          this.activeLoad = false;
+        });
       } else {
         this.$toasted.error('Укажите минимум 1 фото');
       }

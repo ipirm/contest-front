@@ -12,10 +12,13 @@ import VueCountdown from '@chenfengyuan/vue-countdown';
 import 'swiper/swiper-bundle.css'
 import vClickOutside from 'v-click-outside'
 import Toasted from 'vue-toasted';
+import VueLazyload from 'vue-lazyload'
+
 
 i18n.locale = lsService.getLocale();
 
 
+Vue.use(VueLazyload)
 Vue.component(VueCountdown.name, VueCountdown);
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 Vue.use(vClickOutside)
