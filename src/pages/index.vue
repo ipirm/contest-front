@@ -119,11 +119,11 @@
             <p class="participates_util_title style_text" v-t="'participants.participants'" />
             <div class="description_text_stata style_text">
               <div class="description_text_stata_column">
-                <span> {{ concert.participations }} </span>
+                <span> {{ participants.participations }} </span>
                 <p v-t="'participants.total-participants'" />
               </div>
               <div class="description_text_stata_column">
-                <span> {{ concert.likes }} </span>
+                <span> {{ participants.likes }} </span>
                 <p v-t="'participants.voted'" />
               </div>
             </div>
@@ -187,7 +187,7 @@
                         <img
                           :key="k"
                           v-if="k <= 4"
-                          :src="like.user.avatar"
+                          :src="like.avatar"
                           :alt="like.name"
                         />
                       </template>
@@ -243,7 +243,7 @@
                         <div
                           class="likes_popup_img"
                           :style="{
-                            backgroundImage: `url(${like.user.avatar})`
+                            backgroundImage: `url(${like.avatar})`
                           }"
                         ></div>
                         <p>{{ like.name }}</p>
@@ -269,6 +269,7 @@
           :distance="infinityDistance"
         >
           <div slot="no-results"></div>
+          <div slot="no-more"></div>
         </infinite-loading>
       </div>
     </div>
