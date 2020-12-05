@@ -160,17 +160,17 @@
         <div class="participate_wrapper" v-if="participants" :class="{all: loadedAllParticipants}">
           <template v-if="participants.firstConcerts">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.firstConcerts" :key="`firstConcerts-${i}`">
-              <ParticipantInner :item="item" :index="`firstConcerts-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" :active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+              <ParticipantInner :item="item" :index="`firstConcerts-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
             </div>
           </template>
           <template v-if="participants.leaders">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.leaders" :key="`leaders-${i}`">
-              <ParticipantInner :item="item" :index="`leaders-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" :active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+              <ParticipantInner :item="item" :index="`leaders-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
             </div>
           </template>
           <template v-if="participants.items">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.items" :key="`items-${i}`">
-              <ParticipantInner :item="item" :index="`items-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" :active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+              <ParticipantInner :item="item" :index="`items-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
             </div>
           </template>
         </div>
