@@ -32,7 +32,7 @@
           <img svg-inline class="icon" src="@/assets/icons/share.svg" alt="example" />
         </a>
       </div>
-      <div class="overlay-swiper" v-if="activePopUp === index" @click="activePopUp = -1">
+      <div class="overlay-swiper" v-if="activePopUp === index" @click="$emit('active-pop-up', -1)">
         <div class="overlay-swiper-row">
           <div class="likes_popup" @click.stop>
             <a class="btn_exit" @click.stop="$emit('close-pop-up', index)">
@@ -43,7 +43,7 @@
               <p class="likes_popup_title_voted" v-t="'likes.voted'" />
               <p class="likes_popup_title_subtitle">{{ $i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '') }}</p>
             </div>
-            <div class="likes_popup_wrapper" v-body-scroll-lock="activePopUp === index">
+            <div class="likes_popup_wrapper" v-body-scroll-lock="$emit('active-pop-up', index)">
               <a class="likes_popup_wrapper_item" v-for="(like, i) in item.user.likes" :key="i">
                 <div class="likes_popup_img" :style="{
                           backgroundImage: `url(${like.avatar})`
