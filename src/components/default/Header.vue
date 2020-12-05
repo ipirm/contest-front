@@ -147,7 +147,7 @@
               <img
                 svg-inline
                 class="icon svg-path-color"
-                src="@/assets/icons/vk.svg"
+                src="@/assets/icons/google.svg"
                 alt="example"
               />
             </a>

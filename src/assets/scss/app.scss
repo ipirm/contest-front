@@ -1076,12 +1076,32 @@ body {
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
+  cursor: pointer;
+
+  &.edit {
+  	p {
+  		&:first-of-type {
+  			margin-right: 20px;
+  		}
+  	}
+  }
 }
 .user_profile_picture {
   margin-right: 30px;
   position: relative;
+  height: fit-content;
 }
+.user_profile_name_input {
+	display: flex;
+	flex-direction: column;
 
+	input {
+		padding: 10px;
+		border-radius: 8px;
+		border: 1px solid $main-color;
+		margin-bottom: 10px;
+	}
+}
 .btn_avatar {
   display: flex;
   top: calc(100% - 40px);

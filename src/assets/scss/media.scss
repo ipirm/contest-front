@@ -426,7 +426,7 @@
   }
   .user_profile {
     margin-right: 0;
-    margin-bottom: 70px;
+    margin-bottom: 100px;
     align-items: center;
   }
   .user_profile_text {
@@ -511,6 +511,29 @@
   .participate_popup {
     &_title {
       text-align: center;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .user_statistics {
+    width: 100%;
+  }
+
+  .user_profile {
+    flex-direction: column;
+    margin-bottom: 30px;
+
+    &_picture {
+      margin-bottom: 20px;
+    }
+
+    &_text {
+      height: unset;
+
+      &_name {
+        margin-bottom: 10px;
+      }
     }
   }
 }

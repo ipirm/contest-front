@@ -78,11 +78,11 @@ export default new Vuex.Store({
 
 			await api.postFormData('api/user/avatar', formData).then(res => {
 				if (res.data) {
-					this._vm.$toasted.success('Аватар успешно обновлен');
+					this._vm.$toasted.success(i18n.t('toasted.success.avatar'));
 					dispatch('getUser');
 				}
 			}).catch(e => {
-				this._vm.$toasted.error('Произошла ошибка при попытке обновить аватар');
+				this._vm.$toasted.error(i18n.t('toasted.error.avatar'));
 				console.error(e);
 			});
 		},
@@ -136,10 +136,24 @@ export default new Vuex.Store({
 				}).then(() => {
 					dispatch('getParticipants', state.lastQuery);
 				}).catch(e => {
-					this._vm.$toasted.error('Произошла ошибка при попытке поставить лайк/дизлайк');
+					this._vm.$toasted.error(i18n.t('toasted.error.like'));
 					console.log(e);
 				});
 			}
+		},
+
+		async changeName({dispatch}, data) {
+			await api.put('api/user/edit', data)
+				.then(res => {
+					if (res.data) {
+						this._vm.$toasted.success(i18n.t('toasted.success.user-data'));
+						dispatch('getUser');
+					}
+				})
+				.catch(e => {
+					this._vm.$toasted.error(i18n.t('toasted.error.user-data'));
+					console.log(e);
+				})
 		},
 
 		async participate({dispatch, state}, payload) {
@@ -151,14 +165,14 @@ export default new Vuex.Store({
 
 			await api.postFormData('api/participation', formData)
 				.then(res => {
-					if (res.data === 'This user exists in 1 concert') this._vm.$toasted.error('Вы уже участвуете на данном концерце');
+					if (res.data === 'This user exists in 1 concert') this._vm.$toasted.error(i18n.t('toasted.error.participation-already'));
 					else {
-						this._vm.$toasted.success('После модерации мы сообщим вам о вашем статусе участия');
+						this._vm.$toasted.success(i18n.t('toasted.success.participation'));
 						dispatch('getParticipants', state.lastQuery);
 					}
 				})
 				.catch(e => {
-					this._vm.$toasted.error('Произошла ошибка при попытке добавления в список участников');
+					this._vm.$toasted.error(i18n.t('toasted.error.participation'));
 					console.log(e);
 				});
 		}

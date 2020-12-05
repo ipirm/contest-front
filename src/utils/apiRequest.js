@@ -41,6 +41,10 @@ export default class apiRequest {
     return request(axios.post(`${process.env.VUE_APP_API_URL}/${path}`, data, headers()));
   }
 
+  static put(path, data) {
+    return request(axios.put(`${process.env.VUE_APP_API_URL}/${path}`, data, headers()));
+  }
+
   static delete(path) {
     return request(axios.delete(`${process.env.VUE_APP_API_URL}/${path}`, headers()));
   }

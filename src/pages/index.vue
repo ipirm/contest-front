@@ -83,7 +83,6 @@
                   <div
                     class="swiper-slide participate_popup_photo_item"
                     :key="i"
-                    v-if="i !== 3"
                   >
                     <img :src="item.url" />
                     <div class="popup_photo_item_close" @click="removeFile(i)">

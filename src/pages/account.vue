@@ -14,9 +14,15 @@
           />
         </a>
         <div class="user_profile_text">
-          <p class="user_profile_text_name">{{ user.name }} {{ user.last_name }}</p>
-          <p class="user_profile_text_city" v-if="user.age || user.city">{{ user.city +  ' • ' }}{{ user.age }} лет</p>
-          <a class="user_profile_text_edit">
+          <p class="user_profile_text_name" v-if="!editingName">{{ user.name }} {{ user.last_name }}</p>
+          <div class="user_profile_name_input" v-else>
+            <input type="text" v-model="name" :placeholder="$t('name')">
+            <input type="text" v-model="last_name" :placeholder="$t('surname')">
+            <input type="text" v-model="city" :placeholder="$t('city')">
+            <input type="number" v-model="age" :placeholder="$t('age')">
+          </div>
+          <p class="user_profile_text_city" v-if="!editingName && (user.age || user.city)">{{ user.city }}<template v-if="user.age && user.city"> • </template><template v-if="user.age">{{ user.age }} лет</template></p>
+          <div class="user_profile_text_edit" @click="editingName = true" v-if="!editingName">
             <img
               svg-inline
               class="icon svg-path-color"
@@ -24,7 +30,11 @@
               alt="example"
             />
             <p>Редактировать</p>
-          </a>
+          </div>
+          <div class="user_profile_text_edit edit" v-else>
+            <p @click="changeUserName">Сохранить</p>
+            <p @click="editingName = false">Отменить</p>
+          </div>
         </div>
       </div>
       <div class="user_statistics">
@@ -135,6 +145,16 @@
 import {mapState, mapActions} from 'vuex'
 
 export default {
+  data() {
+    return {
+      name: '',
+      last_name: '',
+      city: '',
+      age: '',
+      editingName: false
+    }
+  },
+
   created() {
     if (!this.user)
       this.$router.push('/');
@@ -145,13 +165,28 @@ export default {
   },
 
   methods: {
-    ...mapActions(['uploadAvatar']),
+    ...mapActions(['uploadAvatar', 'changeName']),
 
     onFileChange(e) {
       const file = e.target.files[0];
       if (file) {
         this.uploadAvatar(file);
       }
+    },
+
+    changeUserName() {
+      this.changeName({
+        name: this.name,
+        last_name: this.last_name,
+        city: this.city,
+        age: this.age
+      }).then(() => {
+        this.editingName = false;
+        this.name = '';
+        this.last_name = '';
+        this.city = '';
+        this.age = '';
+      });
     }
   }
 };
