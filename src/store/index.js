@@ -71,6 +71,22 @@ export default new Vuex.Store({
 			}
 		},
 
+
+		async uploadAvatar({ dispatch }, file) {
+			let formData = new FormData();
+			formData.append('file', file);
+
+			await api.postFormData('api/user/avatar', formData).then(res => {
+				if (res.data) {
+					this._vm.$toasted.success('Аватар успешно обновлен');
+					dispatch('getUser');
+				}
+			}).catch(e => {
+				this._vm.$toasted.error('Произошла ошибка при попытке обновить аватар');
+				console.error(e);
+			});
+		},
+
 		async search({ commit, state }, data) {
 			commit('setLastQuery', data.query || null);
 
@@ -112,7 +128,6 @@ export default new Vuex.Store({
 			commit('addParticipants', res.data);
 		},
 
-		// eslint-disable-next-line no-empty-pattern
 		async like({dispatch, state}, data) {
 			if (state.user) {
 				await api.post(data.isLike ? 'api/like' : 'api/like/delete', {
@@ -127,7 +142,6 @@ export default new Vuex.Store({
 			}
 		},
 
-		// eslint-disable-next-line no-empty-pattern
 		async participate({dispatch, state}, payload) {
 			let formData = new FormData();
 			formData.append('concertId', '1');
@@ -137,7 +151,6 @@ export default new Vuex.Store({
 
 			await api.postFormData('api/participation', formData)
 				.then(res => {
-					console.log(res);
 					if (res.data === 'This user exists in 1 concert') this._vm.$toasted.error('Вы уже участвуете на данном концерце');
 					else {
 						this._vm.$toasted.success('После модерации мы сообщим вам о вашем статусе участия');

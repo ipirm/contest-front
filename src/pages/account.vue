@@ -4,11 +4,13 @@
       <div class="user_profile">
         <a class="user_profile_picture">
           <img :src="user.avatar" class="user_profile_image" />
+          <input type="file" name="file" ref="fileChanger" @change="onFileChange" v-show="false">
           <img
             svg-inline
-            class="icon btn_avatar svg-path-color "
+            class="icon btn_avatar svg-path-color"
             src="@/assets/icons/btn-avatar.svg"
-            alt="example"
+            :alt="`${user.name} ${user.last_name}`"
+            @click="$refs.fileChanger.click()"
           />
         </a>
         <div class="user_profile_text">
@@ -130,7 +132,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
   created() {
@@ -140,6 +142,17 @@ export default {
 
   computed: {
     ...mapState(['user'])
+  },
+
+  methods: {
+    ...mapActions(['uploadAvatar']),
+
+    onFileChange(e) {
+      const file = e.target.files[0];
+      if (file) {
+        this.uploadAvatar(file);
+      }
+    }
   }
 };
 </script>
