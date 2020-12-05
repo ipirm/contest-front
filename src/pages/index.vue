@@ -214,7 +214,8 @@ export default {
       sortItems: [
         this.$t('sorting.by-likes'),
         this.$t('sorting.by-created-date'),
-        this.$t('sorting.show-all')
+        this.$t('sorting.show-all'),
+        this.$t('sorting.user-likes')
       ],
       files: [],
       swiperOption: {
@@ -327,6 +328,7 @@ export default {
       let query;
       if (item == this.$t('sorting.by-likes')) query = 'likes'
       else if (item == this.$t('sorting.by-created-date')) query = 'date'
+      else if (item == this.$t('sorting.user-likes')) query = 'user_likes'
       this.getParticipants(query);
     },
     showPhoto(i) {
