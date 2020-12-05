@@ -2,7 +2,6 @@
   <div>
     <transition name="fade" mode="out-in">
       <div v-if="isPageShown" :key="1">
-        <Header />
         <div class="text-page">
           <div class="text-page_title">
             <h1>{{ h1 }}</h1>
@@ -51,20 +50,13 @@
             mollitia animi, id est laborum et dolorum fuga.
           </p>
         </div>
-        <Footer />
       </div>
     </transition>
   </div>
 </template>
 
 <script>
-import Header from "@/components/default/Header.vue";
-import Footer from "@/components/default/Footer.vue";
 export default {
-  components: {
-    Header,
-    Footer
-  },
 
   name: 'TextPage',
 

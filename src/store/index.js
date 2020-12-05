@@ -27,6 +27,10 @@ export default new Vuex.Store({
 			state.user = null;
 		},
 
+		setLastQuery (state, query) {
+			state.lastQuery = query;
+		},
+
 		setConcert (state, concert) {
 			state.concert = concert;
 		},
@@ -67,6 +71,15 @@ export default new Vuex.Store({
 			}
 		},
 
+		async search({ commit, state }, data) {
+			commit('setLastQuery', data.query || null);
+
+			const res = await api.get(`api/concerts/search/data?id=1&search=${data.searchString}&page=${state.page + 1}&limit=15`);
+			if (res.data) {
+				commit('setParticipants', res.data);
+			}
+		},
+
 		async getConcert({ commit }) {
 			const res = await api.get('api/concerts/1');
 			if (res.data) {
@@ -75,7 +88,7 @@ export default new Vuex.Store({
 		},
 
 		async getParticipants({ commit, state }, query) {
-			state.lastQuery = query || null;
+			commit('setLastQuery', query || null);
 
 			let res;
 			if (state.user) {

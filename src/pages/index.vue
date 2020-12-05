@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="contest-page" @click="activeSort = false" v-if="concert">
       <div class="description">
         <div class="description_text">
@@ -158,110 +157,22 @@
             </div>
           </div>
         </div>
-        <div class="participate_wrapper" v-if="participantsToShow" :class="{all: loadedAllParticipants}">
-          <div class="participate_wrapper_overlay" v-for="(item, i) in participantsToShow" :key="i">
-            <FancySwiper
-              v-body-scroll-lock="activePhoto !== -1"
-              v-if="activePhoto === i"
-              @closePopup="closePopupParrent()"
-              :banners="item.images"
-            />
-            <div class="participates_item">
-              <div class="participates_item_img" @click="showPhoto(i)">
-                <img v-lazy="item.images[0].url" :alt="item.user.name + ' ' + item.user.last_name">
-              </div>
-              <div
-                class="participates_item_header"
-              >
-                <div class="like svg-path-color" :class="{hovered: activeLike == i}" @mouseover="mouseOver(i)" @mouseleave="activeLike = -1">
-                  <img
-                    svg-inline
-                    class="icon"
-                    src="@/assets/icons/like.svg"
-                    alt="example"
-                  />
-                  <p class="style_text">{{ item.likesCount.toString() }}</p>
-                  <div class="likes-tooltip" v-if="item.likesCount && i == activeLike">
-                    <div class="likes-tooltip-wrapper">
-                      <template v-for="(like, k) in item.user.likes">
-                        <img
-                          :key="k"
-                          v-if="k < 4"
-                          :src="like.avatar"
-                          :alt="like.name"
-                        />
-                      </template>
-                    </div>
-                    <a href="#" @click.prevent="showPopUp(i)">... {{ item.likesCount > 4 ? $t('tooltips.likes.also') + ' ' + (item.likesCount - 4) : $t('tooltips.likes.more') }}</a>
-                  </div>
-                </div>
-                <div v-if="user && item.user.id === user.id" class="leader">
-                  <p class="style_text" v-t="'you'" />
-                </div>
-                <div v-if="user && participants && participants.firstConcerts && item.user.id !== user.id && participants.firstConcerts.find(i => i.user.id == item.user.id)" class="leader">
-                  <p class="style_text" v-t="'your-choice'" />
-                </div>
-              </div>
-              <div class="participates_item_name" @click="showPhoto(i)">
-                <p class="style_text">{{ item.user.name }} {{ item.user.last_name }}</p>
-                <span class="style_text">{{ item.user.city }}</span>
-                <a class="participates_item_share">
-                  <img
-                    svg-inline
-                    class="icon"
-                    src="@/assets/icons/share.svg"
-                    alt="example"
-                  />
-                </a>
-              </div>
-              <div
-                class="overlay-swiper"
-                v-if="activePopUp === i"
-                @click="activePopUp = -1"
-              >
-                <div class="overlay-swiper-row">
-                  <div class="likes_popup" @click.stop>
-                    <a class="btn_exit" @click.stop="closePopUp(i)">
-                      <img
-                        svg-inline
-                        class="icon svg-stroke-color"
-                        src="@/assets/icons/btn-exit.svg"
-                        alt="example"
-                      />
-                    </a>
-                    <div class="likes_popup_title">
-                      <p class="likes_popup_title_number">{{ item.likesCount }}</p>
-                      <p class="likes_popup_title_voted" v-t="'likes.voted'" />
-                      <p class="likes_popup_title_subtitle">{{ $i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '') }}</p>
-                    </div>
-                    <div class="likes_popup_wrapper" v-body-scroll-lock="activePopUp === i">
-                      <a
-                        class="likes_popup_wrapper_item"
-                        v-for="(like, i) in item.user.likes"
-                        :key="i"
-                      >
-                        <div
-                          class="likes_popup_img"
-                          :style="{
-                            backgroundImage: `url(${like.avatar})`
-                          }"
-                        ></div>
-                        <p>{{ like.name }}</p>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="btn_like" @click="like({userId: item.user.id, isLike: user && participants && !(participants.firstConcerts && item.user.id !== user.id && participants.firstConcerts.find(i => i.user.id == item.user.id))})" v-if="!user || item.user.id != user.id" :class="{active: user && participants && participants.firstConcerts && item.user.id !== user.id && participants.firstConcerts.find(i => i.user.id == item.user.id) }">
-                <img
-                  svg-inline
-                  class="icon svg-path-color"
-                  src="@/assets/icons/btn-like.svg"
-                  alt="example"
-                />
-              </div>
+        <div class="participate_wrapper" v-if="participants" :class="{all: loadedAllParticipants}">
+          <template v-if="participants.firstConcerts">
+            <div class="participate_wrapper_overlay" v-for="(item, i) in participants.firstConcerts" :key="`firstConcerts-${i}`">
+              <ParticipantInner :item="item" :index="`firstConcerts-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" :activePopUp="activePopUp" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
             </div>
-          </div>
+          </template>
+          <template v-if="participants.leaders">
+            <div class="participate_wrapper_overlay" v-for="(item, i) in participants.leaders" :key="`leaders-${i}`">
+              <ParticipantInner :item="item" :index="`leaders-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" :activePopUp="activePopUp" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+            </div>
+          </template>
+          <template v-if="participants.items">
+            <div class="participate_wrapper_overlay" v-for="(item, i) in participants.items" :key="`items-${i}`">
+              <ParticipantInner :item="item" :index="`items-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" :activePopUp="activePopUp" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+            </div>
+          </template>
         </div>
         <infinite-loading 
           @infinite="infiniteHandler"
@@ -273,25 +184,18 @@
         </infinite-loading>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Header from "@/components/default/Header.vue";
-import Footer from "@/components/default/Footer.vue";
-import FancySwiper from "@/components/default/FancySwiper.vue";
-import InfiniteLoading from 'vue-infinite-loading';
 import moment from 'moment'
 
 import {mapState, mapActions, mapMutations} from 'vuex'
 
 export default {
   components: {
-    Header,
-    Footer,
-    FancySwiper,
-    InfiniteLoading
+    InfiniteLoading: () => import('vue-infinite-loading'),
+    ParticipantInner: () => import('@/components/ParticipantInner')
   },
 
   data() {
@@ -300,11 +204,11 @@ export default {
       infinityKey: 1,
       loadedAllParticipants: false,
 
-      loading: false, // TODO
-      activeLike: -1,
-      activePopUp: -1,
+      activePopUp: false,
+      activeLike: false,
+      activePhoto: false,
+
       activeSort: false,
-      activePhoto: -1,
       activeLoad: false,
       activeSelected: this.$t('sorting.show-all'),
       sortItems: [
@@ -347,28 +251,30 @@ export default {
       const date = this.concert.startDate.split('.');
       return (new Date(date[2], date[1] - 1, date[0])).getTime();
     },
-
-    participantsToShow() {
-      if (this.participants) {
-        if (this.user && this.participants.firstConcerts) {
-          if (this.participants.firstConcerts.length === 1)
-            return [...this.participants.firstConcerts, ...this.participants.items]
-
-          return [this.participants.firstConcerts.find(i => i.user.id == this.user.id), this.participants.firstConcerts.find(i => i.user.id != this.user.id), ...this.participants.items]
-        } else
-          return this.participants.items
-      }
-      return null
-    }
   },
 
   methods: {
-    ...mapActions(['participate', 'getConcert', 'getParticipants', 'like', 'getMoreParticipants']),
+    ...mapActions(['participate', 'getConcert', 'getParticipants', 'getMoreParticipants']),
     ...mapMutations(['increasePage']),
 
     toAuth() {
       this.$root.$emit('auth');
       this.activeLoad = false;
+    },
+
+    closePopupParent() {
+      this.activePhoto = -1;
+    },
+    mouseOver(i) {
+      this.activeLike = i;
+    },
+    showPopUp(i) {
+      this.activeSort = false;
+      this.activePopUp = i;
+    },
+    closePopUp() {
+      this.activePopUp = -1;
+      this.activeLike = -1;
     },
 
     infiniteHandler($state) {
@@ -415,20 +321,6 @@ export default {
           file
         });
       }
-    },
-    closePopupParrent() {
-      this.activePhoto = -1;
-    },
-    mouseOver(i) {
-      this.activeLike = i;
-    },
-    showPopUp(i) {
-      this.activeSort = false;
-      this.activePopUp = i;
-    },
-    closePopUp() {
-      this.activePopUp = -1;
-      this.activeLike = -1;
     },
     selectItem(item) {
       this.activeSelected = item;

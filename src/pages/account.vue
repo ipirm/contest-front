@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="account-page" v-if="user">
       <div class="user">
         <div class="user_profile">
@@ -129,22 +128,13 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Header from "@/components/default/Header.vue";
-import Footer from "@/components/default/Footer.vue";
-
 import {mapState} from 'vuex'
 
 export default {
-  components: {
-    Header,
-    Footer
-  },
-
   created() {
     if (!this.user)
       this.$router.push('/');
