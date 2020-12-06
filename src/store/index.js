@@ -11,11 +11,14 @@ export default new Vuex.Store({
 	state: {
 		user: null,
 		concert: null,
+		userConcerts: null,
 		participants: null,
 		lastQuery: null,
 		locale: lsService.getLocale(),
 
-		page: 0
+		page: 0,
+		searchQuery: '',
+		searchLoading: false
 	},
 
 	mutations: {
@@ -56,6 +59,22 @@ export default new Vuex.Store({
 			state.locale = locale;
 			lsService.setLocale(locale);
 			i18n.locale = locale;
+		},
+
+		setPage (state, page) {
+			state.page = page;
+		},
+
+		setSearchQuery (state, query) {
+			state.searchQuery = query;
+		},
+
+		setSearchLoading (state, status) {
+			state.searchLoading = status;
+		},
+
+		setUserConcerts (state, concerts) {
+			state.userConcerts = concerts;
 		}
 	},
 
@@ -70,7 +89,6 @@ export default new Vuex.Store({
 				commit('setUser', res.data);
 			}
 		},
-
 
 		async uploadAvatar({ dispatch }, file) {
 			let formData = new FormData();
@@ -87,13 +105,19 @@ export default new Vuex.Store({
 			});
 		},
 
-		async search({ commit, state }, data) {
+		async search({ commit, state, dispatch }, data) {
+			commit('setSearchQuery', data.searchString.trim() || '');
 			commit('setLastQuery', data.query || null);
+			commit('setSearchLoading', true);
 
-			const res = await api.get(`api/concerts/search/data?id=1&search=${data.searchString}&page=${state.page + 1}&limit=15`);
-			if (res.data) {
-				commit('setParticipants', res.data);
-			}
+			if (data.searchString.trim() != '') {
+				const res = await api.get(`api/concerts/search/data?id=1&search=${data.searchString}&page=${state.page + 1}&limit=15` + (data.query ? `&sort_by=${data.query}` : ''));
+				if (res.data) {
+					commit('setParticipants', res.data);
+				}
+			} else dispatch('getParticipants', data.query);
+		
+			commit('setSearchLoading', false);
 		},
 
 		async getConcert({ commit }) {
@@ -115,17 +139,36 @@ export default new Vuex.Store({
 			commit('setParticipants', res.data);
 		},
 
+		async getParticipantsByLinkID({ commit, state }, referrerID) {
+			let res;
+			if (state.user) {
+				res = await api.get(`api/concerts/concertUsers/1?limit=15&page=${state.page + 1}&linkID=${referrerID}`);
+			} else {
+				res = await api.get(`api/concerts/concertUsersWithOutAuth/1?limit=15&page=${state.page + 1}&linkID=${referrerID}`);
+			}
+			commit('setParticipants', res.data);
+		},
+
 		async getMoreParticipants({ commit, state }, query) {
-			state.lastQuery = query;
+			commit('setLastQuery', query || null);
 
 			let res;
 			if (state.user) {
-				res = await api.get('api/concerts/concertUsers/1');
+				res = await api.get(`api/concerts/concertUsers/1?limit=15&page=${state.page + 1}` + (query ? `&sort_by=${query}` : ''));
 			} else {
-				res = await api.get('api/concerts/concertUsersWithOutAuth/1');
+				res = await api.get(`api/concerts/concertUsersWithOutAuth/1?limit=15&page=${state.page + 1}` + (query ? `&sort_by=${query}` : ''));
 			}
 
 			commit('addParticipants', res.data);
+		},
+
+		async getUserConcerts({ commit, state }) {
+			if (state.user) {
+				const res = await api.get(`api/user/${state.user.id}`);
+				if (res.data) {
+					commit('setUserConcerts', res.data);
+				}
+			}
 		},
 
 		async like({dispatch, state}, data) {

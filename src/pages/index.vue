@@ -157,19 +157,22 @@
           </div>
         </div>
         <div class="participate_wrapper" v-if="participants" :class="{all: loadedAllParticipants}">
+          <div class="participate_wrapper_overlay" v-if="participants.linkItem">
+            <ParticipantInner :item="participants.linkItem" :found="true" :index="`linkItem-1`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+          </div>
           <template v-if="participants.firstConcerts">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.firstConcerts" :key="`firstConcerts-${i}`">
-              <ParticipantInner :item="item" :index="`firstConcerts-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+              <ParticipantInner :item="item" :index="`firstConcerts-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
           <template v-if="participants.leaders">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.leaders" :key="`leaders-${i}`">
-              <ParticipantInner :item="item" :index="`leaders-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+              <ParticipantInner :item="item" :index="`leaders-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
           <template v-if="participants.items">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.items" :key="`items-${i}`">
-              <ParticipantInner :item="item" :index="`items-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" />
+              <ParticipantInner :item="item" :index="`items-${i}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
         </div>
@@ -180,6 +183,9 @@
         >
           <div slot="no-results"></div>
           <div slot="no-more"></div>
+          <div slot="spinner">
+            <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/spinner.svg" alt="loading" />
+          </div>
         </infinite-loading>
       </div>
     </div>
@@ -206,6 +212,7 @@ export default {
       activePopUp: false,
       activeLike: false,
       activePhoto: false,
+      activeClip: false,
 
       activeSort: false,
       activeLoad: false,
@@ -237,11 +244,17 @@ export default {
 
   created() {
     this.getConcert();
-    this.getParticipants();
+
+    if (!this.participants) {
+      if (this.$route.query.referrer) {
+        this.getParticipantsByLinkID(this.$route.query.referrer);
+      } else
+        this.getParticipants();
+    }
   },
 
   computed: {
-    ...mapState(['user', 'concert', 'participants']),
+    ...mapState(['user', 'concert', 'participants', 'searchQuery']),
 
     moment() {
       return moment
@@ -254,7 +267,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['participate', 'getConcert', 'getParticipants', 'getMoreParticipants']),
+    ...mapActions(['participate', 'getConcert', 'getParticipants', 'getMoreParticipants', 'search', 'getParticipantsByLinkID']),
     ...mapMutations(['increasePage']),
 
     toAuth() {
@@ -279,11 +292,18 @@ export default {
 
     infiniteHandler($state) {
       if (this.participants) {
-        if (this.participants.length < parseInt(this.participants.meta.totalItems)) {
+        if (this.participants.items.length < parseInt(this.participants.meta.totalItems)) {
           this.increasePage();
-          this.getMoreParticipants().then(() => {
-            $state.loaded();
-          })
+          let query;
+          if (this.activeSelected == this.$t('sorting.by-likes')) query = 'likes'
+          else if (this.activeSelected == this.$t('sorting.by-created-date')) query = 'date'
+          else if (this.activeSelected == this.$t('sorting.user-likes')) query = 'user_likes'
+          else query = null;
+          if (this.searchQuery == '') {
+            this.getMoreParticipants(query).then(() => {
+              $state.loaded();
+            })
+          } else this.search({ searchString: this.searchQuery, query});
         } else {
           $state.complete()
           this.loadedAllParticipants = true;
@@ -328,7 +348,11 @@ export default {
       if (item == this.$t('sorting.by-likes')) query = 'likes'
       else if (item == this.$t('sorting.by-created-date')) query = 'date'
       else if (item == this.$t('sorting.user-likes')) query = 'user_likes'
-      this.getParticipants(query);
+      else query = null;
+      if (!query) this.activeSelected = this.$t('sorting.show-all');
+      if (this.searchQuery == '') {
+        this.getParticipants(query);
+      } else this.search({ searchString: this.searchQuery, query});
     },
     showPhoto(i) {
       this.activePopUp = -1;

@@ -19,9 +19,9 @@
           class="icon header_util_img svg-stroke-color"
           src="@/assets/icons/search.svg"
           alt="example"
-          @click="search()"
+          @click="searchStuff()"
         />
-        <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="search()">
+        <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="searchStuff()" @input="searchStuff()">
       </div>
       <div class="header_util_container header_util_style header_login_container">
         <template v-if="isLoggedIn">
@@ -82,9 +82,9 @@
                     class="icon header_util_img svg-stroke-color"
                     src="@/assets/icons/search.svg"
                     alt="example"
-                    @click="search()"
+                    @click="searchStuff()"
                   />
-                  <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="search()">
+                  <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="searchStuff()">
                 </div>
                 <div class="header_menu_account-lang">
                   <router-link to="/account" class="header_login_wrapper" v-if="isLoggedIn">
@@ -166,6 +166,7 @@
   </header>
 </template>
 <script>
+import {debounce} from '@/utils/debounce'
 import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
@@ -200,11 +201,21 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['removeUser', 'setLocale']),
-    ...mapActions(['getParticipants']),
+    ...mapMutations(['removeUser', 'setLocale', 'setPage', 'setSearchLoading']),
+    ...mapActions(['getParticipants', 'search']),
 
-    search() {
+    searchStuff() {
+      this.setSearchLoading(true);
 
+      if (this.$route.path != '/') 
+        this.$router.push('/').catch(e => {});
+
+      this.$nextTick(() => {
+        debounce(async () => {
+          this.setPage(0);
+          this.search({ searchString: this.searchInput.replace(' ', '') });
+        }, 250)();
+      });
     },
 
     changeLang() {

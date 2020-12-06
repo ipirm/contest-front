@@ -54,14 +54,22 @@ const router = new VueRouter({
 
 
 router.beforeEach(async (to, from, next) => {
-    const authToken =  window.location.search.replace('?access_token=', '') || localStorage.getItem('auth_token');
-    if (authToken) {
-      localStorage.setItem('auth_token', authToken);
+    if (window.location.search.includes('?access_token')) {
+        const authToken =  window.location.search.replace('?access_token=', '');
+        if (authToken) {
+          localStorage.setItem('auth_token', authToken);
+        }
+        if (window.location.search.replace('?access_token=', '')) {
+            // window.location.href = window.location.origin;
+            // router.push('/', {query: {}});
+            setTimeout(() => {
+                window.history.replaceState(null, null, window.location.pathname);
+            }, 100);
+        }
+    }
+
+    if (localStorage.getItem('auth_token'))
       await store.dispatch('getUser');
-    }
-    if (window.location.search.replace('?access_token=', '')) {
-        window.location.href = window.location.origin;
-    }
 
     next();
 });

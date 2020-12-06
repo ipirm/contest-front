@@ -29,27 +29,27 @@
               src="@/assets/icons/edit.svg"
               alt="example"
             />
-            <p>Редактировать</p>
+            <p v-t="'account.edit'" />
           </div>
           <div class="user_profile_text_edit edit" v-else>
-            <p @click="changeUserName">Сохранить</p>
-            <p @click="editingName = false">Отменить</p>
+            <p @click="changeUserName" v-t="'account.save'" />
+            <p @click="editingName = false" v-t="'account.cancel'" />
           </div>
         </div>
       </div>
       <div class="user_statistics">
-        <div class="user_statistics_wrapper">
+        <div class="user_statistics_wrapper" v-if="userConcerts">
           <div class="user_statistics_container">
-            <p class="user_statistics_number">48</p>
-            <p class="user_statistics_text">Учавствовал</p>
+            <p class="user_statistics_number">{{ userConcerts.participations }}</p>
+            <p class="user_statistics_text" v-t="'account.participated'" />
           </div>
           <div class="user_statistics_container">
-            <p class="user_statistics_number">42</p>
-            <p class="user_statistics_text">Победил</p>
+            <p class="user_statistics_number">0</p>
+            <p class="user_statistics_text" v-t="'account.won'" />
           </div>
           <div class="user_statistics_container">
-            <p class="user_statistics_number">48</p>
-            <p class="user_statistics_text">Голосовал</p>
+            <p class="user_statistics_number">{{ userConcerts.likes }}</p>
+            <p class="user_statistics_text" v-t="'account.voted'" />
           </div>
         </div>
         <div class="user_statistics_dignity">
@@ -61,8 +61,8 @@
           />
 
           <div class="user_statistics_dignity_wrapper">
-            <span> Больше всего голосов набрал в </span>
-            <p>Мистер Вселенная 2019</p>
+            <span v-t="'account.most-votes'" />
+            <p v-t="'account.never-won'" />
           </div>
           <img
             svg-inline
@@ -73,16 +73,16 @@
         </div>
       </div>
       <div class="user_balans">
-        <p class="user_balans_text">Баланс</p>
+        <p class="user_balans_text" v-t="'account.balance'" />
         <p class="user_balans_maining">
           {{ user.balance }}
         </p>
-        <a class="btn_style btn_add"><span> Пополнить </span> </a>
+        <!-- <a class="btn_style btn_add"><span v-t="'account.top-up'" /></a> -->
       </div>
     </div>
     <div class="contests">
-      <div class="contests_title"><p>Конкурсы</p></div>
-      <div class="contests_container">
+      <!-- <div class="contests_title"><p v-t="'account.contests'" /></div> -->
+      <!-- <div class="contests_container">
         <a
           class="contest_item"
           v-for="i in 8"
@@ -117,7 +117,7 @@
           <div class="contest_item_score-likes">
             <div class="score">
               <div class="number">5</div>
-              <div class="text">Место</div>
+              <div class="text" v-t="'account.place'" />
             </div>
             <div class="likes">
               <img
@@ -136,7 +136,7 @@
             <span class="contest_item_title_date"> 10.11.2020 </span>
           </div>
         </a>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -158,14 +158,15 @@ export default {
   created() {
     if (!this.user)
       this.$router.push('/');
+    else this.getUserConcerts();
   },
 
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'userConcerts'])
   },
 
   methods: {
-    ...mapActions(['uploadAvatar', 'changeName']),
+    ...mapActions(['uploadAvatar', 'changeName', 'getUserConcerts']),
 
     onFileChange(e) {
       const file = e.target.files[0];
@@ -176,10 +177,10 @@ export default {
 
     changeUserName() {
       this.changeName({
-        name: this.name,
-        last_name: this.last_name,
-        city: this.city,
-        age: this.age
+        name: this.name.trim() || this.user.name,
+        last_name: this.last_name.trim() || this.user.last_name,
+        city: this.city.trim() || this.user.city,
+        age: Math.min(this.age.toString().trim(), 90) || this.user.age
       }).then(() => {
         this.editingName = false;
         this.name = '';

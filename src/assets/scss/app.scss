@@ -776,8 +776,52 @@ body {
   justify-content: space-between;
   flex-direction: column;
   position: relative;
-
   margin-top: 52px;
+
+  &_share-modal {
+  	position: fixed;
+  	top: 0;
+  	left: 0;
+  	width: 100%;
+  	height: 100%;
+  	background: rgba(0,0,0,0.5);
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	z-index: 1000;
+
+  	&_card {
+  		border-radius: 10px;
+  		padding: 30px;
+  		background: #fff;
+  		display: flex;
+  		justify-content: center;
+  		align-items: center;
+
+  		.clip {
+  			display: flex;
+  			align-items: center;
+  			border: 1px solid $main-color;
+  			border-radius: 5px;
+  			padding: 10px;
+  			cursor: pointer;
+
+  			&-text {
+  				font-size: 14px;
+  				line-height: 100%;
+  				margin-right: 5px;
+  			}
+
+  			&-button {
+  				margin: 3px;
+  				padding: 5px;
+  				font-size: 14px;
+  				line-height: 100%;
+  				width: 24px;
+  			}
+  		}
+  	}
+  }
 }
 .participates_item_header {
   display: flex;
@@ -798,6 +842,10 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
+  }
+
+  .swiper-container {
+  	height: 100%;
   }
 
   &:after {
@@ -1085,6 +1133,23 @@ body {
   		}
   	}
   }
+}
+.infinite-status-prompt {
+	svg {
+		width: 100px;
+	}
+}
+.full-page-loading {
+	background: rgba(0,0,0,.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 150;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .user_profile_picture {
   margin-right: 30px;
