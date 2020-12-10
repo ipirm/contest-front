@@ -418,6 +418,8 @@
   }
   .contests_container {
     margin-bottom: 50px;
+    margin-left: 0;
+    margin-right: 0;
   }
   .user_statistics {
     margin-top: 0px;
@@ -446,6 +448,9 @@
 }
 
 @media (max-width: 520px) {
+  .account-page__content {
+    padding-top: 0 !important;
+  }
   .header_search {
     position: relative;
 
@@ -573,6 +578,24 @@
 }
 
 @media (max-width: 420px) {
+  header {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .header_login {
+    display: none;
+  }
+
+  .header_login_wrapper img {
+    margin-right: 0;
+  }
+
+  .header_util_container .dropdown-icon {
+    padding-top: 12px;
+    padding-bottom: 10px;
+  }
+
   .participate_popup {
     &_title {
       text-align: center;
@@ -596,11 +619,20 @@
   }
 
   .user_profile {
-    flex-direction: column;
     margin-bottom: 30px;
 
     &_picture {
-      margin-bottom: 20px;
+      img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    .btn_avatar {
+      top: calc(100% - 30px);
+      left: calc(100% - 30px);
+      width: 30px;
+      height: 30px;
     }
 
     &_text {
@@ -608,6 +640,7 @@
 
       &_name {
         margin-bottom: 10px;
+        font-size: 20px;
       }
     }
   }
