@@ -125,6 +125,14 @@
   .contest_item {
     width: 210px;
   }
+  .user {
+    flex-direction: column;
+    align-items: center;
+    max-width: 440px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .participates_util {
     padding-bottom: 58px;
   }
@@ -186,6 +194,10 @@
   }
   .user_statistics {
     margin-top: 40px;
+    order: 2;
+  }
+  .user_balans {
+    order: 1;
   }
   .user_statistics {
     justify-content: flex-start;
@@ -384,8 +396,8 @@
     margin: 0;
   }
   .account-page {
-    padding: 77px 20px 40px 20px !important;
-    max-width: 340px;
+    padding: 77px 15px 40px 15px !important;
+    max-width: unset;
   }
   .contest_item {
     margin: 0 0 20px 0;
@@ -422,19 +434,6 @@
     margin-right: 0;
   }
   .user_statistics {
-    margin-top: 0px;
-    margin-bottom: 0px;
-  }
-  .user_balans {
-    margin-top: 0px;
-    flex-wrap: wrap;
-  }
-  .user_profile {
-    margin-bottom: 25px;
-  }
-  .user_balans_maining {
-    font-size: 24px;
-    width: fit-content;
     margin-bottom: 0px;
   }
 
@@ -449,7 +448,7 @@
 
 @media (max-width: 520px) {
   .account-page__content {
-    padding-top: 0 !important;
+    padding: 0 !important;
   }
   .header_search {
     position: relative;
@@ -494,13 +493,8 @@
       display: flex;
     }
   }
-  .user_profile {
-    margin-right: 0;
-    margin-bottom: 100px;
-    align-items: center;
-  }
   .user_profile_text {
-    height: 130px;
+    height: unset;
   }
   .btn_avatar {
     top: calc(100% - 50px);
@@ -512,7 +506,7 @@
     font-size: 24px;
     width: 140px;
     line-height: 34px;
-    height: 62px;
+    height: unset;
   }
   .user_profile_picture {
     margin-right: 15px;
@@ -532,7 +526,7 @@
     width: 150px;
   }
   .user_balans_maining {
-    margin-right: 20px;
+    margin-right: 0;
   }
   .user_balans_text { 
     margin-right: 5px;
@@ -544,9 +538,6 @@
   .user_statistics {
     margin-right: 0px;
     margin-bottom: 0px;
-  }
-  .user_balans {
-    margin-top: 0px;
   }
   .user_statistics {
     width: 90%;
@@ -618,9 +609,12 @@
     width: 100%;
   }
 
-  .user_profile {
-    margin-bottom: 30px;
+  .user_balans_maining {
+    font-size: 24px;
+    margin-bottom: 0;
+  }
 
+  .user_profile {
     &_picture {
       img {
         width: 80px;

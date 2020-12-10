@@ -3,10 +3,10 @@
     <FancySwiper v-body-scroll-lock="activePhoto !== -1" v-if="activePhoto === index" @closePopup="$emit('close-popup-parent')" :banners="item.images" />
     <div class="participates_item">
       <div class="participates_item_img" @click="$emit('show-photo', index)" @mouseenter="startRolling()" @mouseleave="stopRolling()">
-        <div v-swiper:mySwiper="swiperOption" @click.stop>
+        <div v-swiper:mySwiper="swiperOption">
           <div class="swiper-wrapper">
             <div class="swiper-slide" :key="i" v-for="(image, i) in item.images">
-              <img :src="image.url" :alt="item.user.name + ' ' + item.user.last_name">
+              <img class="swiper-lazy" v-lazy="image.url" :alt="item.user.name + ' ' + item.user.last_name">
             </div>
           </div>
         </div>
@@ -138,6 +138,9 @@ export default {
         pagination: {
           el: `.swiper-pagination-${this.index}`,
           type: 'bullets'
+        },
+        lazy: {
+          loadPrevNext: true
         }
       },
 
@@ -161,9 +164,11 @@ export default {
     ...mapActions(['like']),
 
     startRolling() {
-      this.rollInterval = setInterval(() => {
-        this.mySwiper.slideNext();
-      }, 1000);
+      if (window.innerWidth > 540) {
+        this.rollInterval = setInterval(() => {
+          this.mySwiper.slideNext();
+        }, 1000);
+      }
     },
 
     stopRolling() {
