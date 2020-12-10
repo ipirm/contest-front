@@ -1,10 +1,11 @@
 <template>
   <div class="overlay-swiper" @click="closeModal">
+    <div class="overlay-swiper__bg"></div>
     <div class="overlay-swiper-row">
       <div class="overlay-swiper_text cursor-pointer" @click="closeModal">
         <span v-t="'close'" />
       </div>
-      <div v-swiper:mySwiper="swiperOption" @click.stop>
+      <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" :key="i" v-for="(banner, i) in banners">
             <img :src="banner.url" :alt="banner.name" />
@@ -28,8 +29,8 @@ export default {
         centeredSlides: true,
         spaceBetween: 10,
         grabCursor: true,
-        observer: true,
-        observeParents: true
+        // observer: true,
+        // observeParents: true
       }
     };
   },
