@@ -73,8 +73,11 @@
     </div>
 
     <transition name="fade" mode="out-in">
-      <div class="participates_item_share-modal" v-if="index == activeClip" :key="0" @click="$emit('set-active-clip', false)">
+      <div class="participates_item_share-modal" v-body-scroll-lock="index == activeClip" v-if="index == activeClip" :key="0" @click="$emit('set-active-clip', false)">
         <div class="participates_item_share-modal_card" @click.stop>
+          <div class="btn_exit" @click="$emit('set-active-clip', false)">
+            <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/btn-exit.svg" alt="example" />
+          </div>
           <h2 class="participates_item_share-modal_title">Помогите друзьям вас найти 🙆‍♀️</h2>
           <div class="clip" v-clipboard:copy="href" v-clipboard:success="copied">
             <span class="clip-text">{{ href }}</span>

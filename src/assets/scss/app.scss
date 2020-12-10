@@ -507,6 +507,18 @@ header {
   width: 64%;
 }
 
+.participates_item_share-modal_card {
+	position: relative;
+
+	.btn_exit {
+		margin-bottom: 0;
+		margin-right: 0;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+	}
+}
+
 .center_title a {
   margin-bottom: 32px;
   height: 29px;
@@ -762,7 +774,7 @@ footer {
 }
 .style_text p {
   font-size: 14px;
-  line-height: 18px;
+  line-height: 14px;
   margin-right: 16px;
   opacity: 0.5;
 }
@@ -781,6 +793,8 @@ footer {
   font-size: 16px;
   width: 60%;
   color: #E0AF0C;
+  transition: height .2s ease;
+  overflow: hidden;
 }
 .description_days {
   display: flex;
@@ -908,7 +922,7 @@ body {
   			border-radius: 5px;
   			padding: 10px;
   			cursor: pointer;
-  			margin-bottom: 10px;
+  			margin-bottom: 15px;
 
   			&-text {
   				font-size: 14px;
@@ -1032,6 +1046,7 @@ body {
 }
 .participates_item_share {
   margin-left: auto;
+  cursor: pointer;
 }
 .btn_like {
   display: flex;
@@ -1164,6 +1179,8 @@ body {
 }
 .account-page {
   background: #f7f7f7;
+  margin-left: auto;
+  margin-right: auto;
 
   &__content {
   	padding: 77px 20px 148px 20px !important;
@@ -1490,6 +1507,23 @@ body {
   line-height: 17px;
   color: #000000;
 }
+.no-ml {
+	margin-left: 0 !important;
+}
+.accordion-toggler {
+	display: none;
+	width: 16px;
+	height: 12px;
+	outline: none;
+
+	&-wrapper {
+		transition: transform .2s ease;
+		
+		&.active {
+			transform: rotate(180deg);
+		}
+	}
+}
 .user_statistics_dignity_wrapper {
   width: fit-content;
   align-items: center;
@@ -1553,6 +1587,18 @@ body {
 .contests {
   display: flex;
   flex-direction: column;
+}
+.contests_title {
+  margin-bottom: 37px;
+}
+.contests_title p {
+  height: 29px;
+  font-family: Commissioner;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
 }
 .contests_container {
   display: flex;
@@ -1710,9 +1756,12 @@ img[lazy=loading] {
   right: 0;
   padding: 24px 40px 66px 40px;
 
-  .__vuescroll {
-    width: 100% !important;
-    height: unset !important;
+  .likes_popup_wrapper_item p {
+  	overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2; /* number of lines to show */
+		-webkit-box-orient: vertical;
   }
 }
 .btn_exit {
@@ -1764,6 +1813,7 @@ img[lazy=loading] {
   flex-wrap: wrap;
   text-align: center;
   overflow-y: auto;
+  overflow-x: hidden;
   justify-content: center;
   max-height: 300px;
   -webkit-overflow-scrolling: touch;  
@@ -2037,7 +2087,9 @@ img[lazy=loading] {
   background-color: black;
   display: inline-block;
 }
-
+.no-results {
+	text-align: center;
+}
 .inputfile:focus + label,
 .inputfile + label:hover {
   background-color: red;
@@ -2049,6 +2101,12 @@ img[lazy=loading] {
     height: 100%;
     padding: 15px 29px;
   }
+}
+
+.header_search_inner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .header_search_input {

@@ -5,7 +5,6 @@
         <!-- <img src="">  -->
         Лого
       </router-link>
-      <a class="header_logo_text"> Топовые фото-конкурсы </a>
     </div>
     <div class="header_main">
       <div class="header_main_line" />
@@ -14,15 +13,17 @@
       <a @click.prevent="goToLink('/rules')" href="/rules" :class="{header_main_active: $route.path == '/rules'}"><span>Правила</span></a>
     </div>
     <div class="header_util">
-      <div class="header_util_container header_search desktop" @click="isSearchActive = true" v-click-outside="() => {isSearchActive = false}">
-        <img
-          svg-inline
-          class="icon header_util_img svg-stroke-color"
-          src="@/assets/icons/search.svg"
-          alt="example"
-          @click="searchStuff()"
-        />
-        <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="searchStuff()" @input="searchStuff()">
+      <div class="header_util_container header_search desktop" :class="{'no-auth': isLoggedIn, active: searchInput || isSearchActive}" @click="isSearchActive = true" v-click-outside="() => {isSearchActive = false}">
+        <div class="header_search_inner">
+          <img
+            svg-inline
+            class="icon header_util_img svg-stroke-color"
+            src="@/assets/icons/search.svg"
+            alt="example"
+            @click="isSearchActive ? searchStuff() : isSearchActive = true"
+          />
+          <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="searchStuff()" @input="searchStuff()">
+        </div>
       </div>
       <div class="header_util_container header_util_style header_login_container">
         <template v-if="isLoggedIn">
@@ -77,37 +78,16 @@
                 </li>
               </ul>
               <div class="header_menu_footer">
-                <div class="header_util_container header_search" @click="isSearchActive = true" v-click-outside="() => {isSearchActive = false}">
-                  <img
-                    svg-inline
-                    class="icon header_util_img svg-stroke-color"
-                    src="@/assets/icons/search.svg"
-                    alt="example"
-                    @click="searchStuff()"
-                  />
-                  <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="searchStuff()">
-                </div>
                 <div class="header_menu_account-lang">
-                  <router-link to="/account" class="header_login_wrapper" v-if="isLoggedIn">
-                    <img :src="user.avatar" />
-                    <div class="header_login">
-                      <span> {{ user.name }} </span>
-                      <p>{{ user.balance }}</p>
-                    </div>
-                  </router-link>
-                  <div class="header_menu_log login" v-else>
-                    <span @click="isLoginModalOpen = true; isMenuActive = false">Войти</span>
-                  </div>
                   <a class="header_util_container header_lang" @click="changeLang()">
                     <img
                       svg-inline
-                      class="icon header_util_rus"
+                      class="icon header_util_rus no-ml"
                       :src="`/svg/${locale}.svg`"
                       alt="example"
                     />
                   </a>
                 </div>
-                <div class="header_menu_log" @click="logout" v-if="isLoggedIn"><span>Выйти</span></div>
               </div>
             </div>
           </div>
@@ -131,7 +111,7 @@
     </div>
 
     <transition name="fade" mode="out-in">
-      <div class="login-modal" v-if="isLoginModalOpen" :key="1" @click="isLoginModalOpen = false">
+      <div class="login-modal" v-if="isLoginModalOpen" v-bsl="isLoginModalOpen" :key="1" @click="isLoginModalOpen = false">
         <div class="login-modal__card" @click.stop>
           <button class="login-modal__close-button" @click="isLoginModalOpen = false"></button>
           <h2 class="login-modal__title">Войти</h2>

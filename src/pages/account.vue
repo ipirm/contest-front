@@ -1,94 +1,97 @@
 <template>
-  <div class="account-page" v-if="user">
-    <div class="account-page__content">
-      <div class="user">
-        <div class="user_profile">
-          <a class="user_profile_picture">
-            <img :src="user.avatar" class="user_profile_image" />
-            <input type="file" name="file" ref="fileChanger" @change="onFileChange" v-show="false">
-            <img
-              svg-inline
-              class="icon btn_avatar svg-path-color"
-              src="@/assets/icons/btn-avatar.svg"
-              :alt="`${user.name} ${user.last_name}`"
-              @click="$refs.fileChanger.click()"
-            />
-          </a>
-          <div class="user_profile_text">
-            <p class="user_profile_text_name" v-if="!editingName">{{ user.name }} {{ user.last_name }}</p>
-            <div class="user_profile_name_input" v-else>
-              <input type="text" v-model="name" :placeholder="$t('name')">
-              <input type="text" v-model="last_name" :placeholder="$t('surname')">
-              <input type="text" v-model="city" :placeholder="$t('city')">
-              <input type="number" v-model="age" :placeholder="$t('age')">
-            </div>
-            <p class="user_profile_text_city" v-if="!editingName && (user.age || user.city)">{{ user.city }}<template v-if="user.age && user.city"> • </template><template v-if="user.age">{{ user.age }} лет</template></p>
-            <div class="user_profile_text_edit" @click="editingName = true" v-if="!editingName">
+  <div class="account">
+    <div class="account-page" v-if="user">
+      <div class="account-page__content">
+        <div class="user">
+          <div class="user_profile">
+            <a class="user_profile_picture">
+              <img :src="user.avatar" class="user_profile_image" />
+              <input type="file" name="file" ref="fileChanger" @change="onFileChange" v-show="false">
               <img
                 svg-inline
-                class="icon svg-path-color"
-                src="@/assets/icons/edit.svg"
+                class="icon btn_avatar svg-path-color"
+                src="@/assets/icons/btn-avatar.svg"
+                :alt="`${user.name} ${user.last_name}`"
+                @click="$refs.fileChanger.click()"
+              />
+            </a>
+            <div class="user_profile_text">
+              <p class="user_profile_text_name" v-if="!editingName">{{ user.name }} {{ user.last_name }}</p>
+              <div class="user_profile_name_input" v-else>
+                <input type="text" v-model="name" :placeholder="$t('name')">
+                <input type="text" v-model="last_name" :placeholder="$t('surname')">
+                <input type="text" v-model="city" :placeholder="$t('city')">
+                <input type="number" v-model="age" :placeholder="$t('age')">
+              </div>
+              <p class="user_profile_text_city" v-if="!editingName && (user.age || user.city)">{{ user.city }}<template v-if="user.age && user.city"> • </template><template v-if="user.age">{{ user.age }} лет</template></p>
+              <div class="user_profile_text_edit" @click="editingName = true" v-if="!editingName">
+                <img
+                  svg-inline
+                  class="icon svg-path-color"
+                  src="@/assets/icons/edit.svg"
+                  alt="example"
+                />
+                <p v-t="'account.edit'" />
+              </div>
+              <div class="user_profile_text_edit edit" v-else>
+                <p @click="changeUserName" v-t="'account.save'" />
+                <p @click="editingName = false" v-t="'account.cancel'" />
+              </div>
+            </div>
+          </div>
+          <div class="user_statistics">
+            <div class="user_statistics_wrapper" v-if="userConcerts">
+              <div class="user_statistics_container">
+                <p class="user_statistics_number">{{ userConcerts.participations }}</p>
+                <p class="user_statistics_text" v-t="'account.participated'" />
+              </div>
+              <div class="user_statistics_container">
+                <p class="user_statistics_number">0</p>
+                <p class="user_statistics_text" v-t="'account.won'" />
+              </div>
+              <div class="user_statistics_container" v-if="user && user.concertsUsers && user.concertsUsers[0] && user.concertsUsers[0]">
+                <p class="user_statistics_number">{{ user.concertsUsers[0].likesCount }}</p>
+                <p class="user_statistics_text" v-t="'account.voted'" />
+              </div>
+            </div>
+            <div class="user_statistics_dignity">
+              <img
+                svg-inline
+                class="icon"
+                src="@/assets/icons/pattern-left.svg"
                 alt="example"
               />
-              <p v-t="'account.edit'" />
-            </div>
-            <div class="user_profile_text_edit edit" v-else>
-              <p @click="changeUserName" v-t="'account.save'" />
-              <p @click="editingName = false" v-t="'account.cancel'" />
-            </div>
-          </div>
-        </div>
-        <div class="user_statistics">
-          <div class="user_statistics_wrapper" v-if="userConcerts">
-            <div class="user_statistics_container">
-              <p class="user_statistics_number">{{ userConcerts.participations }}</p>
-              <p class="user_statistics_text" v-t="'account.participated'" />
-            </div>
-            <div class="user_statistics_container">
-              <p class="user_statistics_number">0</p>
-              <p class="user_statistics_text" v-t="'account.won'" />
-            </div>
-            <div class="user_statistics_container" v-if="user && user.concertsUsers && user.concertsUsers[0] && user.concertsUsers[0]">
-              <p class="user_statistics_number">{{ user.concertsUsers[0].likesCount }}</p>
-              <p class="user_statistics_text" v-t="'account.voted'" />
-            </div>
-          </div>
-          <div class="user_statistics_dignity">
-            <img
-              svg-inline
-              class="icon"
-              src="@/assets/icons/pattern-left.svg"
-              alt="example"
-            />
 
-            <div class="user_statistics_dignity_wrapper">
-              <!-- <span v-t="'account.most-votes'" /> -->
-              <p v-t="'account.never-won'" />
+              <div class="user_statistics_dignity_wrapper">
+                <!-- <span v-t="'account.most-votes'" /> -->
+                <p v-t="'account.never-won'" />
+              </div>
+              <img
+                svg-inline
+                class="icon"
+                src="@/assets/icons/pattern-right.svg"
+                alt="example"
+              />
             </div>
-            <img
-              svg-inline
-              class="icon"
-              src="@/assets/icons/pattern-right.svg"
-              alt="example"
-            />
+          </div>
+          <div class="user_balans">
+            <p class="user_balans_text" v-t="'account.balance'" />
+            <p class="user_balans_maining">
+              {{ user.balance }}
+            </p>
+            <!-- <a class="btn_style btn_add"><span v-t="'account.top-up'" /></a> -->
           </div>
         </div>
-        <div class="user_balans">
-          <p class="user_balans_text" v-t="'account.balance'" />
-          <p class="user_balans_maining">
-            {{ user.balance }}
-          </p>
-          <!-- <a class="btn_style btn_add"><span v-t="'account.top-up'" /></a> -->
-        </div>
-      </div>
-      <div class="contests" v-if="user && user.concertsUsers && user.concertsUsers[0] && user.concertsUsers[0].images">
-        <div class="contests_container">
-          <div
-            class="contest_item"
-            v-for="(item, i) in user.concertsUsers[0].images"
-            :key="i"
-            :style="{ backgroundImage: `url(${item.url})` }"
-          >
+        <div class="contests" v-if="user && user.concertsUsers && user.concertsUsers[0] && user.concertsUsers[0].images">
+          <div class="contests_title"><p v-t="'account.images'" /></div>
+          <div class="contests_container">
+            <div
+              class="contest_item"
+              v-for="(item, i) in user.concertsUsers[0].images"
+              :key="i"
+              :style="{ backgroundImage: `url(${item.url})` }"
+            >
+            </div>
           </div>
         </div>
       </div>

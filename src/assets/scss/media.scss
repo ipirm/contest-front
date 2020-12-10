@@ -73,7 +73,7 @@
     display: none;
   }
 
-  .header_login_wrapper, .header_lang {
+  .header_lang {
     &.desktop {
       display: none;
     }
@@ -85,10 +85,6 @@
 
   .header_login_container {
     align-items: center;
-
-    .dropdown, .dropdown-icon_wrapper {
-      display: none;
-    }
   }
 
   .header_login_wrapper {
@@ -126,6 +122,9 @@
 }
 
 @media (max-width: 780px) {
+  .contest_item {
+    width: 210px;
+  }
   .participates_util {
     padding-bottom: 58px;
   }
@@ -163,13 +162,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-
-    > div {
-      &:last-of-type {
-        margin-left: auto;
-        margin-top: 20px;
-      }
-    }
   }
   .description {
     align-items: center;
@@ -258,6 +250,50 @@
 }
 
 @media (max-width: 540px) {
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .contests_container {
+    width: 100%;
+  }
+
+  .page {
+    margin-top: 80px;
+  }
+
+  .accordion-toggler {
+    display: block;
+  }
+  .description_prizes {
+    margin-top: 0;
+  }
+  .description_text_date {
+    margin-bottom: 20px;
+  }
+  .description_text_main-text {
+    margin-bottom: 0;
+
+    &.active {
+      margin-bottom: 30px;
+    }
+  }
+  .description_text_subtitle {
+    display: flex;
+    align-items: center;
+
+    span {
+      &:first-of-type {
+        margin-right: 10px;
+      }
+
+      &:last-of-type {
+        margin-top: 5px;
+      }
+    }
+  }
   .participate_popup_photo_item img {
     height: auto !important;
   }
@@ -293,6 +329,11 @@
   }
   .description_days {
     flex-direction: column;
+    margin-top: 15px;
+
+    & > div:last-of-type {
+      margin-top: 0;
+    }
   }
   .description_days_to-end {
     margin-bottom: 30px;
@@ -319,12 +360,12 @@
     width: 200px;
   }
   .contest-page {
-    padding: 77px 15px 100px 15px !important;
+    padding: 40px 15px 100px 15px !important;
     max-width: 340px;
   }
   .participates_item {
     width: 100%;
-    max-width: 300px;
+    max-width: 310px;
     height: 400px;
   }
   .participate_wrapper_overlay {
@@ -405,8 +446,32 @@
 }
 
 @media (max-width: 520px) {
-  .header_search.desktop, .header_login-button.desktop {
-    display: none;
+  .header_search {
+    position: relative;
+
+    .header_search_inner {
+      background: #fff;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+    
+    .header_search_input {
+      &.active {
+        width: 95px;
+      }
+    }
+
+    input {
+      width: 0;
+    }
+  }
+  .header_util_container .dropdown-icon {
+    margin-right: 0;
+  }
+  .header_login-button, .header_search_input {
+    margin-right: 10px;
   }
   .text-page {
     padding-top: 40px;
@@ -473,7 +538,7 @@
   }
   .user_statistics {
     margin-right: 0px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
   }
   .user_balans {
     margin-top: 0px;
@@ -511,6 +576,16 @@
   .participate_popup {
     &_title {
       text-align: center;
+    }
+  }
+
+  .likes_popup {
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .btn_exit {
+      margin-right: 0;
     }
   }
 }
