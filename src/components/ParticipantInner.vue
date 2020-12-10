@@ -45,9 +45,10 @@
           <img svg-inline class="icon" src="@/assets/icons/share.svg" alt="example" />
         </a>
       </div>
-      <div class="overlay-swiper" v-if="activePopUp === index" @click="$emit('active-pop-up', -1)">
+      <div class="overlay-swiper" v-if="activePopUp === index">
+        <div class="overlay-swiper__bg" @click="$emit('active-pop-up', -1)"></div>
         <div class="overlay-swiper-row">
-          <div class="likes_popup" @click.stop>
+          <div class="likes_popup">
             <a class="btn_exit" @click.stop="$emit('close-pop-up', index)">
               <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/btn-exit.svg" alt="example" />
             </a>
@@ -162,7 +163,8 @@ export default {
     startRolling() {
       if (window.innerWidth > 540 && this.item.images.length > 1) {
         this.rollInterval = setInterval(() => {
-          this.mySwiper.slideNext();
+          if (this.mySwiper && this.mySwiper.params)
+            this.mySwiper.slideNext();
         }, 1000);
       }
     },
@@ -170,7 +172,8 @@ export default {
     stopRolling() {
       clearInterval(this.rollInterval);
       this.rollInterval = null;
-      this.mySwiper.slideTo(1);
+      if (this.mySwiper && this.mySwiper.params)
+        this.mySwiper.slideTo(1);
     },
 
     copied() {

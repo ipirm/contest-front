@@ -35,9 +35,10 @@
           <div class="btn_style btn_contest_participate" v-if="user && user.concertsUsers && !user.concertsUsers.length || !user" @click="activeLoad = true" v-t="'description.participate'" />
         </div>
       </div>
-      <div class="overlay-swiper participate-slider" v-if="activeLoad" @click="activeLoad = false" v-body-scroll-lock="activeLoad">
+      <div class="overlay-swiper participate-slider" v-if="activeLoad" v-body-scroll-lock="activeLoad">
+        <div class="overlay-swiper__bg" @click="activeLoad = false"></div>
         <div class="overlay-swiper-row">
-          <div class="participate_popup" @click.stop>
+          <div class="participate_popup">
             <a class="btn-exit-aligne" @click="activeLoad = false">
               <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/btn-exit.svg" alt="example" />
             </a>
@@ -132,8 +133,8 @@
             </div>
           </template>
         </div>
-        <div class="no-results" v-t="'no-results'" v-if="searchQuery.length && participants && !participants.meta.totalItems && !participants.meta.itemCount" />
-        <div class="no-results" v-t="'no-liked'" v-if="activeSelected === $t('sorting.user-likes') && participants && !participants.meta.totalItems && !participants.meta.itemCount" />
+        <div class="no-results" v-t="'no-results'" v-if="searchQuery.length && participants && participants.meta && !participants.meta.totalItems && !participants.meta.itemCount" />
+        <div class="no-results" v-t="'no-liked'" v-if="activeSelected === $t('sorting.user-likes') && participants && participants.meta && !participants.meta.totalItems && !participants.meta.itemCount" />
         <infinite-loading @infinite="infiniteHandler" :key="infinityKey" :distance="infinityDistance">
           <div slot="no-results" />
           <div slot="no-more" />
