@@ -4,7 +4,7 @@ import router from './router'
 import store from './store'
 import SvgSprite from 'vue-svg-sprite';
 import BodyScrollLockDirective from 'v-body-scroll-lock';
-import { Swiper, EffectFade } from 'swiper';
+import { Swiper, EffectFade, Pagination } from 'swiper';
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import i18n from './locales'
 import lsService from './services/lsService'
@@ -15,14 +15,13 @@ import 'swiper/swiper-bundle.css'
 import vClickOutside from 'v-click-outside'
 import Toasted from 'vue-toasted';
 import VueLazyload from 'vue-lazyload'
-
-
+ 
 i18n.locale = lsService.getLocale();
 
 Vue.use(VueClipboard);
 Vue.use(VueLazyload)
 Vue.component(VueCountdown.name, VueCountdown);
-Swiper.use([EffectFade]);
+Swiper.use([EffectFade, Pagination]);
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 Vue.use(vClickOutside)
 Vue.use(SvgSprite);

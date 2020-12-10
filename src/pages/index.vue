@@ -8,11 +8,17 @@
           </p>
 
           <div class="description_text_date style_text">
-            <p>{{ $t('description.created') }} {{ moment(concert.createdAt).format('DD.MM.YYYY') }} • {{ $t('description.starts') }} {{ concert.startDate }} {{ $t('description.to') }} {{ concert.endDate }}</p>
+            <p>{{ $t('description.starts') }} {{ concert.startDate }} {{ $t('description.to') }} {{ concert.endDate }}</p>
           </div>
           <p class="description_text_main-text style_text">
             {{ $i18n.locale === 'RU' ? concert.description : ($i18n.locale === 'EN' ? concert.description__en : '') }}
           </p>
+          <div class="description_prizes">
+            <div class="prize" v-for="(place, i) in concert.places" :key="i">
+              <div class="cost">${{ place.total }}</div>
+              <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
+            </div>
+          </div>
         </div>
         <div class="description_days">
           <div>
@@ -24,15 +30,7 @@
             </countdown>
             <p class="description_days_to-end style_text" v-t="'description.to-end'" />
           </div>
-          <div class="description_prizes">
-            <div class="prize" v-for="(place, i) in concert.places" :key="i">
-              <div class="cost">${{ place.total }}</div>
-              <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
-            </div>
-          </div>
-          <div>
-            <div class="btn_style btn_contest_participate" @click="activeLoad = true" v-t="'description.participate'" />
-          </div>
+          <div class="btn_style btn_contest_participate" v-if="user && user.concertsUsers && !user.concertsUsers.length || !user" @click="activeLoad = true" v-t="'description.participate'" />
         </div>
       </div>
 

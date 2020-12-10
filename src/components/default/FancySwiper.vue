@@ -9,7 +9,6 @@
           <div class="swiper-slide" :key="i" v-for="(banner, i) in banners">
             <img :src="banner.url" :alt="banner.name" />
           </div>
-          <div class="swiper-pagination"></div>
         </div>
       </div>
     </div>
@@ -30,11 +29,7 @@ export default {
         spaceBetween: 10,
         grabCursor: true,
         observer: true,
-        observeParents: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true
-        }
+        observeParents: true
       }
     };
   },

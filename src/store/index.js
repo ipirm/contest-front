@@ -212,6 +212,7 @@ export default new Vuex.Store({
 					else {
 						this._vm.$toasted.success(i18n.t('toasted.success.participation'));
 						dispatch('getParticipants', state.lastQuery);
+						dispatch('getConcert');
 					}
 				})
 				.catch(e => {

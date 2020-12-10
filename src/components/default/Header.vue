@@ -8,9 +8,10 @@
       <a class="header_logo_text"> Топовые фото-конкурсы </a>
     </div>
     <div class="header_main">
-      <router-link to="/" :class="{header_main_active: $route.path == '/'}">Главная</router-link>
-      <router-link to="/about" :class="{header_main_active: $route.path == '/about'}">О нас</router-link>
-      <router-link to="/rules" :class="{header_main_active: $route.path == '/rules'}">Правила</router-link>
+      <div class="header_main_line" />
+      <a @click.prevent="goToLink('/')" href="/" :class="{header_main_active: $route.path == '/'}"><span>Главная</span></a>
+      <a @click.prevent="goToLink('/about')" href="/about" :class="{header_main_active: $route.path == '/about'}"><span>О нас</span></a>
+      <a @click.prevent="goToLink('/rules')" href="/rules" :class="{header_main_active: $route.path == '/rules'}"><span>Правила</span></a>
     </div>
     <div class="header_util">
       <div class="header_util_container header_search desktop" @click="isSearchActive = true" v-click-outside="() => {isSearchActive = false}">
@@ -186,6 +187,9 @@ export default {
     this.$root.$on('auth', () => {
       this.isLoginModalOpen = true;
     })
+
+    window.addEventListener('resize', this.setLinePosition, false);
+    this.setLinePosition();
   },
 
   computed: {
@@ -204,11 +208,26 @@ export default {
     ...mapMutations(['removeUser', 'setLocale', 'setPage', 'setSearchLoading']),
     ...mapActions(['getParticipants', 'search']),
 
+    setLinePosition() {
+      // set the bottom line
+      const wrapper = this.$el.querySelector('.header_main'),
+        line = this.$el.querySelector('.header_main_line'),
+        links = this.$el.querySelectorAll('.header_main .header_main_active');
+
+      const currentLink = links ? Array.from(links).find(l => l.pathname === this.$route.path) : null;
+
+      if (currentLink) {
+        const currentLinkRect = currentLink.getBoundingClientRect();
+        line.style.width = `${currentLinkRect.width}px`;
+        line.style.transform = `translateX(${currentLinkRect.left - wrapper.getBoundingClientRect().left}px)`;
+      }
+    },
+
     searchStuff() {
       this.setSearchLoading(true);
 
       if (this.$route.path != '/') 
-        this.$router.push('/').catch(e => {});
+        this.$router.push('/').catch(() => {});
 
       this.$nextTick(() => {
         debounce(async () => {
@@ -225,8 +244,13 @@ export default {
 
     goToLink(link) {
       this.isMenuActive = false;
-      this.$router.push('/');
-      this.$router.push(link);
+      this.$router.push('/').catch(() => {});
+      this.$router.push(link).catch(() => {});
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.setLinePosition();
+        }, 500);
+      });
     },
 
     logout() {

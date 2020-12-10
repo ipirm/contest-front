@@ -15,6 +15,22 @@ body {
   background: $white;
   font-family: "Noto Sans", sans-serif;
 }
+.page {
+	position: relative;
+
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 240px;
+		background: url(/img/header-bottom-bg.png);
+		background-size: 100%;
+		background-repeat: no-repeat;
+	}
+}
 .header_logo_img {
   width: 44px;
   height: 22px;
@@ -52,7 +68,7 @@ header {
   height: 80px;
   display: flex;
   align-items: center;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 8px 17px rgba(63, 47, 0, 0.3);
   width: 100%;
   justify-content: space-between;
   z-index: 998;
@@ -75,8 +91,23 @@ header {
   color: #000000;
   opacity: 0.5;
 }
+.header_main {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	position: relative;
+
+	&_line {
+		background: #EEB609;
+		height: 2px;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		transition: width .2s ease, transform .2s ease;
+	}
+}
 .header_main a {
-  height: 17px;
+  height: 100%;
   margin-left: 24px;
   margin-right: 24px;
   font-style: normal;
@@ -85,6 +116,8 @@ header {
   line-height: 17px;
   text-align: center;
   color: #000000;
+  display: flex;
+  align-items: center;
 }
 
 .header_main_active {
@@ -645,7 +678,7 @@ footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 .contest-page {
   max-width: 1270px;
@@ -660,25 +693,37 @@ footer {
 }
 .description_prizes {
   display: flex;
-  justify-content: flex-end;
-  text-align: right;
-  margin-bottom: 20px;
+  margin-top: 60px;
 
   .prize {
     margin-right: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:nth-child(1) {
+    	color: #FDCA0B;
+    }
+
+    &:nth-child(2) {
+    	color: #E0AF0C;
+    }
+
+    &:nth-child(3) {
+    	color: #B77F10;
+    }
 
     &:last-of-type {
       margin-right: 0;
     }
 
     .cost {
-      font-size: 20px;
+      font-size: 24px;
       line-height: 27px;
-      color: #000000;
     }
 
     .place {
-      font-size: 14px;
+      font-size: 17px;
       line-height: 19px;
       color: #000000;
       opacity: 0.5;
@@ -689,7 +734,15 @@ footer {
 .description_text_subtitle {
   margin-bottom: 8px;
   color: $main-color;
+  background-color: $main-color;
   font-style: normal !important;
+  filter: drop-shadow(2px 0px 0px #761B2B);
+  background: linear-gradient(90deg, #FFCF31, #DC802C);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-text-fill-color: transparent;
 }
 .description_text_stata {
   display: flex;
@@ -722,19 +775,35 @@ footer {
   color: #000000;
   opacity: 0.5;
   font-size: 14px;
-  margin-bottom: 56px;
+  margin-bottom: 16px;
 }
 .description_text_main-text {
   font-size: 16px;
   width: 60%;
+  color: #E0AF0C;
 }
 .description_days {
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
+  filter: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.25));
 }
 body {
   background: #f7f7f7;
+}
+.participant-inner {
+	.swiper-pagination-bullet {
+		background: #FFFFFF !important;
+		opacity: 0.3 !important;
+		margin-right: 8px;
+
+		&:last-of-type {
+			margin-right: 0;
+		}
+
+		&-active {
+			opacity: 1 !important;
+		}
+	}
 }
 .description_days_title {
   color: $main-color;
@@ -756,6 +825,7 @@ body {
   color: $white;
   background: $main-color;
   border: 1px solid #eeb609;
+  font-weight: 500;
   font-family: Commissioner;
   font-style: normal;
   box-shadow: 0px 8px 16px rgba(245, 47, 83, 0.25);
@@ -765,6 +835,8 @@ body {
   font-size: 14px;
   text-align: right;
   margin-bottom: 20px;
+  opacity: .5;
+  filter: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.25));
 }
 .participates_item {
   width: 230px;
@@ -790,13 +862,44 @@ body {
   	align-items: center;
   	z-index: 1000;
 
+  	.social-buttons {
+  		justify-content: flex-start;
+  		align-items: center;
+
+  		.social-button {
+  			margin-right: 8px;
+  			cursor: pointer;
+
+  			&:last-child {
+  				margin-right: 0;
+  			}
+
+  			&.vk {
+  				width: 21px;
+  				height: 29px;
+  				padding-top: 2px;
+
+  				svg {
+  					width: 100%;
+  				}
+  			}
+  		}
+  	}
+
+  	&_title {
+  		font-size: 16px;
+  		line-height: 100%;
+  		margin-bottom: 20px;
+  		font-weight: 400;
+  	}
+
   	&_card {
   		border-radius: 10px;
   		padding: 30px;
   		background: #fff;
   		display: flex;
+  		flex-direction: column;
   		justify-content: center;
-  		align-items: center;
 
   		.clip {
   			display: flex;
@@ -805,6 +908,7 @@ body {
   			border-radius: 5px;
   			padding: 10px;
   			cursor: pointer;
+  			margin-bottom: 10px;
 
   			&-text {
   				font-size: 14px;
@@ -1059,16 +1163,21 @@ body {
   width: 160px;
 }
 .account-page {
-  padding: 77px 20px 148px 20px !important;
   background: #f7f7f7;
-  max-width: 1270px;
-  margin: auto;
+
+  &__content {
+  	padding: 77px 20px 148px 20px !important;
+  	max-width: 1270px;
+  	margin: auto;
+  }
 }
 .user {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   margin-bottom: 107px;
+  z-index: 1;
+  position: relative;
 }
 .user_profile {
   display: flex;
@@ -1374,7 +1483,6 @@ body {
 }
 .user_statistics_dignity span {
   width: 207px;
-  height: 17px;
   font-family: Commissioner;
   font-style: normal;
   font-weight: normal;
@@ -1392,7 +1500,6 @@ body {
 }
 .user_statistics_dignity p {
   width: 157px;
-  height: 17px;
   font-family: Commissioner;
   font-style: normal;
   font-weight: normal;
@@ -1470,162 +1577,6 @@ body {
   flex-direction: column;
   justify-content: space-between;
   z-index: 90;
-
-  &_score-likes {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 100;
-
-    .score {
-      width: 96px;
-      height: 96px;
-      background: $main-color;
-      border-radius: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      text-align: center;
-      z-index: 1;
-      position: relative;
-
-      .number {
-        font-size: 36px;
-      }
-
-      .text {
-        font-size: 14px;
-      }
-    }
-
-    .likes {
-      margin-top: 3px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-
-      &:after {
-        content: '';
-        display: block;
-        background: #FFFFFF;
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 64px;
-        height: 64px;
-        transform: translate(-50%, calc(-50% - 12px));
-      }
-
-      svg {
-        margin-right: 4px;
-        z-index: 1;
-
-        path {
-          fill: $main-color;
-        }
-      }
-
-      .number {
-        font-size: 14px;
-        line-height: 19px;
-        color: black;
-        z-index: 1;
-      }
-    }
-  }
-}
-
-.contest_item_review_margin span {
-  font-family: Commissioner;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: #ffffff;
-}
-.contest_item_review {
-  display: flex;
-  flex-direction: row;
-  z-index: 100;
-}
-.contest_item_review_margin {
-  margin-right: 16px;
-  height: fit-content;
-  display: flex;
-  align-items: center;
-}
-
-.contest_item_review_margin svg {
-  margin-right: 6px;
-}
-
-.contest_item_title_subtitle {
-  color: #ffffff;
-  margin-bottom: 8px;
-  font-family: Commissioner;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 20px;
-}
-.contest_item_title_date {
-  font-family: Commissioner;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 15px;
-  color: #ffffff;
-}
-.contest_item_title {
-  vertical-align: center;
-  z-index: 100;
-}
-.contest_item::after {
-  left: 0px;
-  bottom: 0px;
-  top: 0px;
-  content: "";
-  background: linear-gradient(360deg, #000000 0%, rgba(0, 0, 0, 0) 52.6%);
-  border-radius: 8px;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 91;
-}
-.contest_item::before {
-  left: 0px;
-  bottom: 0px;
-  top: 0px;
-  content: "";
-  background: #000000;
-  opacity: 0.25;
-  border-radius: 8px;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 92;
-}
-.contests_title {
-  margin-bottom: 37px;
-}
-.contests_title p {
-  width: 112px;
-  height: 29px;
-  font-family: Commissioner;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  line-height: 29px;
-  color: #000000;
 }
 .header_login {
   display: flex;
@@ -1834,6 +1785,8 @@ img[lazy=loading] {
   padding: 106px 20px 150px;
   max-width: 720px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 .text-page_title h1 {
   height: 59px;

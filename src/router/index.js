@@ -64,7 +64,7 @@ router.beforeEach(async (to, from, next) => {
             // router.push('/', {query: {}});
             setTimeout(() => {
                 window.history.replaceState(null, null, window.location.pathname);
-            }, 100);
+            }, 1000);
         }
     }
 
