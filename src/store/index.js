@@ -42,7 +42,10 @@ export default new Vuex.Store({
 
 		setParticipants (state, participants) {
 			state.page = 0;
-			state.participants = participants;
+			state.participants = [];
+			Vue.prototype.$nextTick(() => {
+				state.participants = participants;
+			});
 		},
 
 		addParticipants (state, participants) {

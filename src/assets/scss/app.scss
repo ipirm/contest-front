@@ -765,7 +765,6 @@ footer {
 }
 .style_text p {
   font-size: 14px;
-  line-height: 14px;
   opacity: 0.5;
 }
 .description_text_stata_column {
@@ -1087,7 +1086,6 @@ body {
 .participate_wrapper {
   flex-wrap: wrap;
   display: flex;
-  z-index: 130;
   position: relative;
   height: 100%;
   padding-bottom: 50px;
@@ -1407,7 +1405,6 @@ body {
   margin-bottom: 48px;
 }
 .participate_popup_upload_container p {
-  height: 16px;
   font-family: Commissioner;
   font-style: normal;
   font-weight: normal;
@@ -1454,7 +1451,6 @@ body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   box-shadow: 0px 8px 16px rgba(183, 134, 40, 0.25);
-  width: 200px;
   height: 60px;
   border-radius: 30px;
   font-size: 14px;

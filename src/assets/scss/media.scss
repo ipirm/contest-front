@@ -310,7 +310,6 @@
     height: auto !important;
   }
   .popup_btn-style {
-    width: 133px;
     height: 40px;
     margin-bottom: 10px;
   }
@@ -334,7 +333,17 @@
     width: 100%;
   }
   .participate_popup {
-    padding: 0 15px 10px;
+    padding: 0 15px;
+    height: 500px;
+    justify-content: center;
+    position: relative;
+
+    .btn-exit-aligne {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      margin: 0 !important;
+    }
   }
   .participates_util_order {
     padding: 6px 18px 8px 18px;
@@ -570,7 +579,7 @@
 
 @media (max-width: 420px) {
   header {
-    padding-left: 10px;
+    padding-left: 20px;
     padding-right: 10px;
   }
 
