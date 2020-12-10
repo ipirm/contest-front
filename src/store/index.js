@@ -16,6 +16,8 @@ export default new Vuex.Store({
 		lastQuery: null,
 		locale: lsService.getLocale(),
 
+		searchNumber: 0,
+
 		page: 0,
 		searchQuery: '',
 		searchLoading: false
@@ -49,6 +51,10 @@ export default new Vuex.Store({
 
 		increasePage(state) {
 			state.page++;
+		},
+
+		increaseSearchNumber(state) {
+			state.searchNumber++;
 		},
 
 		setTotal(state, data) {
@@ -109,6 +115,7 @@ export default new Vuex.Store({
 			commit('setSearchQuery', data.searchString.trim() || '');
 			commit('setLastQuery', data.query || null);
 			commit('setSearchLoading', true);
+			commit('increaseSearchNumber');
 
 			if (data.searchString.trim() != '') {
 				const res = await api.get(`api/concerts/search/data?id=1&search=${data.searchString}&page=${state.page + 1}&limit=15` + (data.query ? `&sort_by=${data.query}` : ''));
@@ -129,6 +136,7 @@ export default new Vuex.Store({
 
 		async getParticipants({ commit, state }, query) {
 			commit('setLastQuery', query || null);
+			commit('increaseSearchNumber');
 
 			let res;
 			if (state.user) {
@@ -140,6 +148,7 @@ export default new Vuex.Store({
 		},
 
 		async getParticipantsByLinkID({ commit, state }, referrerID) {
+			commit('increaseSearchNumber');
 			let res;
 			if (state.user) {
 				res = await api.get(`api/concerts/concertUsers/1?limit=15&page=${state.page + 1}&linkID=${referrerID}`);
@@ -151,6 +160,7 @@ export default new Vuex.Store({
 
 		async getMoreParticipants({ commit, state }, query) {
 			commit('setLastQuery', query || null);
+			commit('increaseSearchNumber');
 
 			let res;
 			if (state.user) {

@@ -113,7 +113,7 @@ import { mapState, mapActions } from 'vuex'
 import { Facebook, Twitter, Reddit, Telegram, WhatsApp, Pinterest } from 'vue-socialmedia-share';
 
 export default {
-  props: ['item', 'activeLike', 'activePhoto', 'activePopUp', 'activeClip', 'index', 'found'],
+  props: ['item', 'activeLike', 'activePhoto', 'activePopUp', 'activeClip', 'index', 'found', 'id'],
 
   components: {
     FancySwiper: () => import('@/components/default/FancySwiper'),
@@ -151,10 +151,6 @@ export default {
   computed: {
     ...mapState(['user', 'concert']),
 
-    id() {
-      return Number(this.index.replace('leaders-', '').replace('firstConcerts-', '').replace('items-', '').replace('linkItem-'))
-    },
-
     href() {
       return `${window.location.origin}?referrer=${this.item.userId}`
     }
@@ -164,7 +160,7 @@ export default {
     ...mapActions(['like']),
 
     startRolling() {
-      if (window.innerWidth > 540) {
+      if (window.innerWidth > 540 && this.item.images.length > 1) {
         this.rollInterval = setInterval(() => {
           this.mySwiper.slideNext();
         }, 1000);
