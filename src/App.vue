@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div> 
 		<Header />
 		<transition name="fade" mode="out-in">
 			<router-view class="page" />
