@@ -2089,6 +2089,7 @@ img[lazy=loading] {
   justify-content: center;
   max-height: 640px;
   height: 100%;
+  z-index: 1;
 }
 .participate_popup_photo_item {
   min-width: 180px !important;
