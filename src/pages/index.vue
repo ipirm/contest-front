@@ -35,8 +35,8 @@
             <span class="title" v-t="'description.prizes-title'" />
             <div class="prizes">
               <div class="prize" v-for="(place, i) in concert.places" :key="i">
-                <div class="cost">{{ place.total }}%</div>
-                <div class="place">{{ i+1 }} {{ $i18n.locale === 'RU' ? place.name : ($i18n.locale === 'EN' ? place.name__en : '') }}</div>
+                <div class="cost">{{ place.name }}%</div>
+                <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
               </div>
             </div>
           </div>
