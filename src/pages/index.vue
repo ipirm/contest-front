@@ -18,15 +18,7 @@
           <p class="description_text_main-text style_text" ref="descriptionText" :class="{active: isTextShown}">
             {{ $i18n.locale === 'RU' ? concert.description : ($i18n.locale === 'EN' ? concert.description__en : '') }}
           </p>
-          <div class="description_prizes">
-            <span class="title" v-t="'description.prizes-title'" />
-            <div class="prizes">
-              <div class="prize" v-for="(place, i) in concert.places" :key="i">
-                <div class="cost">${{ place.total }}</div>
-                <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
-              </div>
-            </div>
-          </div>
+          <div class="btn_style btn_contest_participate" v-if="user && user.concertsUsers && !user.concertsUsers.length || !user" @click="activeLoad = true" v-t="'description.participate'" />
         </div>
         <div class="description_days">
           <div>
@@ -38,7 +30,15 @@
             </countdown>
             <p class="description_days_to-end style_text" v-t="'description.to-end'" />
           </div>
-          <div class="btn_style btn_contest_participate" v-if="user && user.concertsUsers && !user.concertsUsers.length || !user" @click="activeLoad = true" v-t="'description.participate'" />
+          <div class="description_prizes">
+            <span class="title" v-t="'description.prizes-title'" />
+            <div class="prizes">
+              <div class="prize" v-for="(place, i) in concert.places" :key="i">
+                <div class="cost">${{ place.total }}</div>
+                <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="overlay-swiper participate-slider" v-if="activeLoad" v-body-scroll-lock="activeLoad">
