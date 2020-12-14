@@ -38,16 +38,24 @@ svg {
 }
 .header_logo_img {
   width: 44px;
-  height: 22px;
   font-family: "Noto Sans", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
   color: $main-color;
-  margin-right: 25px;
-}
 
+  svg {
+  	height: 50px;
+  }
+}
+.footer_logo {
+	.header_logo_img {
+		svg {
+			height: 70px;
+		}
+	}
+}
 .cursor-pointer {
 	cursor: pointer !important;
 }
@@ -723,10 +731,11 @@ footer {
   .prizes {
   	display: flex;
   	justify-content: flex-end;
+    flex-wrap: wrap;
   }
 
   .prize {
-    margin-right: 32px;
+    margin: 0 0 8px 32px;
     display: flex;
     flex-direction: column;
 
@@ -740,10 +749,6 @@ footer {
 
     &:nth-child(3) {
     	color: #B77F10;
-    }
-
-    &:last-of-type {
-      margin-right: 0;
     }
 
     .cost {
@@ -838,11 +843,19 @@ body {
 		}
 	}
 }
+.description_days {
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
 .description_days_title {
   color: $main-color;
   font-size: 32px;
   line-height: 59px;
-  align-items: center;
+  align-items: flex-end;
+  text-align: right;
   margin-bottom: -5px;
   width: 290px;
   display: block;

@@ -2,10 +2,13 @@
   <footer>
     <div class="footer_logo">
       <a class="header_logo_img">
-        <!-- <img src=""> -->
-        Лого
+        <img
+          svg-inline
+          class="icon svg-path-color"
+          src="@/assets/icons/logo.svg"
+          alt="Miss instagram 2020"
+        />
       </a>
-      <a class="header_logo_text" v-t="'footer.topcik'" />
     </div>
     <div class="footer_links">
       <router-link to="/">{{ $t('footer.index') }}</router-link>

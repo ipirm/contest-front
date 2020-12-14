@@ -2,8 +2,12 @@
   <header>
     <div class="header_logo">
       <router-link class="header_logo_img" to="/">
-        <!-- <img src="">  -->
-        Лого
+        <img
+          svg-inline
+          class="icon svg-stroke-color"
+          src="@/assets/icons/logo.svg"
+          alt="Miss Instagram 2020"
+        />
       </router-link>
     </div>
     <div class="header_main">
