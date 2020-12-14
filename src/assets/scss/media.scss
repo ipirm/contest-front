@@ -43,6 +43,12 @@
   .likes_popup {
     width: 55%;
   }
+  .description_text {
+    .svg-title {
+      width: 430px;
+      margin-bottom: -15px;
+    }
+  }
   .contest-page {
     padding: 77px 20px 148px 20px !important;
     max-width: 780px;
@@ -268,6 +274,13 @@
     left: 0;
   }
 
+  .description_text {
+    .svg-title {
+      width: 300px;
+      margin-bottom: -15px;
+    }
+  }
+
   .contests_container {
     width: 100%;
   }
@@ -298,7 +311,7 @@
 
     span {
       &:first-of-type {
-        margin-right: 10px;
+        margin-left: 10px;
       }
 
       &:last-of-type {
@@ -319,8 +332,10 @@
     }
   }
   .description_prizes {
-    text-align: left;
-    justify-content: flex-start;
+    .prizes {
+      text-align: left;
+      justify-content: flex-start;
+    }
   }
   .btn_participate span {
     font-size: 12px;

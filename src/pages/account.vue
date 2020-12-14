@@ -41,37 +41,10 @@
           </div>
           <div class="user_statistics">
             <div class="user_statistics_wrapper" v-if="userConcerts">
-              <div class="user_statistics_container">
-                <p class="user_statistics_number">{{ userConcerts.participations }}</p>
-                <p class="user_statistics_text" v-t="'account.participated'" />
-              </div>
-              <div class="user_statistics_container">
-                <p class="user_statistics_number">0</p>
-                <p class="user_statistics_text" v-t="'account.won'" />
-              </div>
               <div class="user_statistics_container" v-if="user && user.concertsUsers && user.concertsUsers[0] && user.concertsUsers[0]">
                 <p class="user_statistics_number">{{ user.concertsUsers[0].likesCount }}</p>
                 <p class="user_statistics_text" v-t="'account.voted'" />
               </div>
-            </div>
-            <div class="user_statistics_dignity">
-              <img
-                svg-inline
-                class="icon"
-                src="@/assets/icons/pattern-left.svg"
-                alt="example"
-              />
-
-              <div class="user_statistics_dignity_wrapper">
-                <!-- <span v-t="'account.most-votes'" /> -->
-                <p v-t="'account.never-won'" />
-              </div>
-              <img
-                svg-inline
-                class="icon"
-                src="@/assets/icons/pattern-right.svg"
-                alt="example"
-              />
             </div>
           </div>
           <div class="user_balans">

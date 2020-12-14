@@ -28,6 +28,7 @@
           <p class="style_text" v-t="'you-found'" />
         </div>
         <div class="leader" v-else-if="index.startsWith('leader')">
+          <img svg-inline class="icon" src="@/assets/icons/crown.svg" alt="crown" v-if="id == 0" />
           <p class="style_text">{{ id == 0 ? $t('leader') : `${id + 1} ${$t('place')}` }}</p>
         </div>
         <div v-else-if="user && item.user.id === user.id" class="leader">

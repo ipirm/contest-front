@@ -15,6 +15,11 @@ body {
   background: $white;
   font-family: "Noto Sans", sans-serif;
 }
+
+svg {
+	outline: none;
+}
+
 .page {
 	position: relative;
 
@@ -704,8 +709,19 @@ footer {
   opacity: 0.5;
 }
 .description_prizes {
-  display: flex;
   margin-top: 60px;
+
+  .title {
+  	font-size: 16px;
+		line-height: 22px;
+		color: #E0AF0C;
+		margin-bottom: 16px;
+		display: block;
+  }
+
+  .prizes {
+  	display: flex;
+  }
 
   .prize {
     margin-right: 32px;
@@ -742,10 +758,13 @@ footer {
     }
   }
 }
+.description_text {
+  svg {
+  	outline: none;
+  }
+}
 .description_text_subtitle {
   margin-bottom: 8px;
-  color: $main-color;
-  font-style: normal !important;
 }
 .description_text_stata {
   display: flex;
@@ -1005,13 +1024,18 @@ body {
 .like svg {
   margin-right: 4px;
 }
+.like, .btn_like {
+	svg path {
+  	fill: #FF3131;
+	}
+}
 .like p {
   font-size: 14px;
 }
 .leader {
   width: fit-content;
   height: 29px;
-  background: $main-color;
+  background: #FF3131;
   border-radius: 8px;
   display: flex;
   flex-direction: row;
@@ -1317,7 +1341,7 @@ body {
 }
 .user_statistics_wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 .user_statistics_number {
   height: 29px;
@@ -1346,6 +1370,9 @@ body {
 .user_statistics {
   width: 301px;
   height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .user_statistics_container {
   width: fit-content;
@@ -1548,11 +1575,6 @@ body {
   line-height: 17px;
   color: $main-color;
 }
-.user_statistics {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
 .user_balans_text {
   width: 47px;
   height: 17px;
@@ -1579,6 +1601,7 @@ body {
 .user_balans {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
 }
 .btn_add {
@@ -1703,6 +1726,40 @@ body {
 
       &:last-of-type {
         margin-right: 0;
+      }
+
+      &.vk {
+      	svg path {
+      		fill: #3f8ae0;
+      	}
+      }
+
+      &.fb {
+      	svg path {
+      		fill: #1876f2;
+      	}
+      }
+
+      &.google {
+      	svg {
+      		width: 21px;
+      		height: 21px;
+
+      		path {
+      			&:nth-child(1) {
+      				fill: #FBBB00;
+      			}
+      			&:nth-child(2) {
+      				fill: #518EF8;
+      			}
+      			&:nth-child(3) {
+      				fill: #28B446;
+      			}
+      			&:nth-child(4) {
+      				fill: #F14336;
+      			}
+      		}
+      	}
       }
     }
   }
@@ -2007,7 +2064,7 @@ img[lazy=loading] {
 }
 .btn_like:hover, .btn_like.active {
   cursor: pointer;
-  background: $main-color;
+  background: #FF3131;
   svg {
     path {
       fill: #ffffff !important;
@@ -2147,5 +2204,17 @@ img[lazy=loading] {
 
 	&.active {
 		width: 120px;
+	}
+}
+
+body.touch {
+	.btn_like {
+		&:hover {
+			background: white !important;
+
+			svg path {
+				fill: #FF3131 !important;
+			}
+		}
 	}
 }
