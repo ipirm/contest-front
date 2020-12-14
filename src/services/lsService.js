@@ -15,7 +15,7 @@ const lsService = {
   },
   setLocale: locale => {
     localStorage.setItem('language', locale);
-    moment.locale(locale);
+    moment.locale(locale.toLowerCase());
   }
 };
 
