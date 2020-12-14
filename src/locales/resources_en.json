@@ -1,6 +1,25 @@
 {
+    "header": {
+        "index": "Main",
+        "about": "About us",
+        "rules": "Rules",
+        "account": "Account",
+        "logout": "Logout",
+        "login": "Login"
+    },
+
+    "share-modal": {
+        "title": "Help your friends find you 🙆‍♀️"
+    },
+
+    "footer": {
+        "index": "Main",
+        "about": "About us",
+        "rules": "Rules"
+    },
+
     "description": {
-        "to-end": "To the end",
+        "to-end": "Until the end",
         "created": "Created",
         "starts": "Runs from",
         "to": "to",
