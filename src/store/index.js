@@ -141,13 +141,28 @@ export default new Vuex.Store({
 			commit('setLastQuery', query || null);
 			commit('increaseSearchNumber');
 
+			let random;
+			if (query === 'random') {
+				random = true;
+				query = null;
+			}
+
 			let res;
 			if (state.user) {
 				res = await api.get(`api/concerts/concertUsers/1?limit=15&page=${state.page + 1}` + (query ? `&sort_by=${query}` : ''));
 			} else {
 				res = await api.get(`api/concerts/concertUsersWithOutAuth/1?limit=15&page=${state.page + 1}` + (query ? `&sort_by=${query}` : ''));
 			}
-			commit('setParticipants', res.data);
+			if (!random) {
+				commit('setParticipants', res.data);
+			} else if (res.data && res.data.items) {
+				let items = res.data.items.sort(() => .5 - Math.random());
+				delete res.data.items;
+				commit('setParticipants', {
+					...res.data,
+					items
+				})
+			}
 		},
 
 		async getParticipantsByLinkID({ commit, state }, referrerID) {

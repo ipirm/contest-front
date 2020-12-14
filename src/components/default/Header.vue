@@ -116,7 +116,7 @@
           <button class="login-modal__close-button" @click="isLoginModalOpen = false"></button>
           <h2 class="login-modal__title">Войти</h2>
           <div class="login-modal__social-buttons">
-            <a class="link" :href="`${apiUrl}/api/auth/vkontakte`">
+            <a class="link vk" :href="`${apiUrl}/api/auth/vkontakte`">
               <img
                 svg-inline
                 class="icon svg-path-color"
@@ -124,15 +124,15 @@
                 alt="example"
               />
             </a>
-            <a class="link" :href="`${apiUrl}/api/auth/google`">
+            <a class="link google" :href="`${apiUrl}/api/auth/google`">
               <img
                 svg-inline
                 class="icon svg-path-color"
-                src="@/assets/icons/google.svg"
+                src="@/assets/icons/google-standard.svg"
                 alt="example"
               />
             </a>
-            <a class="link" :href="`${apiUrl}/api/auth/facebook`">
+            <a class="link fb" :href="`${apiUrl}/api/auth/facebook`">
               <img
                 svg-inline
                 class="icon svg-path-color"

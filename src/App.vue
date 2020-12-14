@@ -23,6 +23,42 @@ export default {
 		Footer: () => import('@/components/default/Footer'),
 	},
 
+	mounted() {
+		let watchForHover = () => {
+      let hasHoverClass = false;
+      let container = document.body;
+      let lastTouchTime = 0;
+
+      let enableHover = () => {
+        // discard emulated mouseMove events coming from touch events
+        if (new Date() - lastTouchTime < 500) return;
+        if (hasHoverClass) return;
+
+        container.classList.remove("touch");
+        hasHoverClass = true;
+      };
+
+      let disableHover = () => {
+        if (!hasHoverClass) return;
+
+        container.classList.add("touch");
+        hasHoverClass = false;
+      };
+
+      let updateLastTouchTime = () => {
+        lastTouchTime = new Date();
+      };
+
+      document.addEventListener("touchstart", updateLastTouchTime, true);
+      document.addEventListener("touchstart", disableHover, true);
+      document.addEventListener("mousemove", enableHover, true);
+
+      enableHover();
+    };
+
+    watchForHover();
+	},
+
 	computed: {
 		...mapState(['searchLoading'])
 	}

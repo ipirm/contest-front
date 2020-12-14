@@ -3,12 +3,15 @@
     <div class="contest-page" @click="activeSort = false" v-if="concert">
       <div class="description">
         <div class="description_text">
-          <p class="description_text_subtitle style_title">
-            <span>{{ $i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '') }}</span>
+          <div class="description_text_subtitle style_title">
+            <h1 v-show="false">
+              {{ $i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '') }}
+            </h1>
+            <img svg-inline class="icon svg-stroke-color svg-title" src="@/assets/icons/title.svg" :alt="$i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '')" />
             <span @click="toggleAccordion" class="accordion-toggler-wrapper" :class="{active: isTextShown}">
-              <img svg-inline class="icon svg-stroke-color accordion-toggler" src="@/assets/icons/arrow-bottom.svg" alt="example" />
+              <img svg-inline class="icon svg-stroke-color accordion-toggler" src="@/assets/icons/arrow-bottom.svg" alt="dropdown" />
             </span>
-          </p>
+          </div>
           <div class="description_text_date style_text">
             <p>{{ $t('description.starts') }} {{ moment(concert.startDate, 'DD.MM.YYYY').format('DD MMMM YYYY') + ($i18n.locale === 'EN' ? '' : 'г') }} {{ $t('description.to') }} {{ moment(concert.endDate, 'DD.MM.YYYY').format('DD MMMM YYYY') + ($i18n.locale === 'EN' ? '' : 'г') }}</p>
           </div>
@@ -16,9 +19,12 @@
             {{ $i18n.locale === 'RU' ? concert.description : ($i18n.locale === 'EN' ? concert.description__en : '') }}
           </p>
           <div class="description_prizes">
-            <div class="prize" v-for="(place, i) in concert.places" :key="i">
-              <div class="cost">${{ place.total }}</div>
-              <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
+            <span class="title" v-t="'description.prizes-title'" />
+            <div class="prizes">
+              <div class="prize" v-for="(place, i) in concert.places" :key="i">
+                <div class="cost">${{ place.total }}</div>
+                <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -101,7 +107,7 @@
               { order_active: activeSort }
             ]" @click.stop="activeSort = !activeSort">
             <div class="participates_util_order_wrapper">
-              <p class="active-selected">{{ activeSelected }}</p>
+              <p class="active-selected" v-t="activeSelected === this.$t('sorting.show-all') ? this.$t('sorting.placeholder') : activeSelected" />
               <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/arrow-bottom.svg" alt="example" />
             </div>
             <div class="participates_util_options">
@@ -177,7 +183,8 @@ export default {
         this.$t('sorting.by-likes'),
         this.$t('sorting.by-created-date'),
         this.$t('sorting.show-all'),
-        this.$t('sorting.user-likes')
+        this.$t('sorting.user-likes'),
+        this.$t('sorting.random')
       ],
       files: [],
       swiperOption: {
@@ -325,6 +332,7 @@ export default {
       if (item == this.$t('sorting.by-likes')) query = 'likes'
       else if (item == this.$t('sorting.by-created-date')) query = 'date'
       else if (item == this.$t('sorting.user-likes')) query = 'user_likes'
+      else if (item == this.$t('sorting.random')) query = 'random'
       else query = null;
       if (!query) this.activeSelected = this.$t('sorting.show-all');
       if (this.searchQuery == '') {
