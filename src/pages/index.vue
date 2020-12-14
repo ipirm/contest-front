@@ -7,7 +7,8 @@
             <h1 v-show="false">
               {{ $i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '') }}
             </h1>
-            <img svg-inline class="icon svg-stroke-color svg-title" src="@/assets/icons/title.svg" :alt="$i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '')" />
+            <img svg-inline class="icon svg-stroke-color svg-title" src="@/assets/icons/title.svg" :alt="$i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '')" v-if="$i18n.locale === 'RU'" />
+            <img svg-inline class="icon svg-stroke-color svg-title" src="@/assets/icons/title-en.svg" :alt="$i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '')" v-else-if="$i18n.locale === 'EN'" />
             <span @click="toggleAccordion" class="accordion-toggler-wrapper" :class="{active: isTextShown}">
               <img svg-inline class="icon svg-stroke-color accordion-toggler" src="@/assets/icons/arrow-bottom.svg" alt="dropdown" />
             </span>

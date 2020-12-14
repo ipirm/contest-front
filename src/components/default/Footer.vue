@@ -5,12 +5,12 @@
         <!-- <img src=""> -->
         Лого
       </a>
-      <a class="header_logo_text"> Топовые фото-конкурсы </a>
+      <a class="header_logo_text" v-t="'footer.topcik'" />
     </div>
     <div class="footer_links">
-      <router-link to="/">Главная</router-link>
-      <router-link to="/about">О нас</router-link>
-      <router-link to="/rules">Правила</router-link>
+      <router-link to="/">{{ $t('footer.index') }}</router-link>
+      <router-link to="/about">{{ $t('footer.about') }}</router-link>
+      <router-link to="/rules">{{ $t('footer.rules') }}</router-link>
     </div>
     <div class="footer_socials">
       <a>
@@ -18,7 +18,7 @@
           svg-inline
           class="icon svg-path-color"
           src="@/assets/icons/vk.svg"
-          alt="example"
+          alt="vk"
         />
       </a>
       <a>
@@ -26,7 +26,7 @@
           svg-inline
           class="icon svg-path-color"
           src="@/assets/icons/facebook.svg"
-          alt="example"
+          alt="facebook"
         />
       </a>
       <a>
@@ -34,7 +34,7 @@
           svg-inline
           class="icon svg-path-color"
           src="@/assets/icons/instagram.svg"
-          alt="example"
+          alt="instagram"
         />
       </a>
       <a>
@@ -42,10 +42,9 @@
           svg-inline
           class="icon svg-path-color"
           src="@/assets/icons/youtube.svg"
-          alt="example"
+          alt="youtube"
         />
       </a>
     </div>
-    <div class="footer_rights">Топовые фото-конкурсы © 2020</div>
   </footer>
 </template>

@@ -8,9 +8,9 @@
     </div>
     <div class="header_main">
       <div class="header_main_line" />
-      <a @click.prevent="goToLink('/')" href="/" :class="{header_main_active: $route.path == '/'}"><span>Главная</span></a>
-      <a @click.prevent="goToLink('/about')" href="/about" :class="{header_main_active: $route.path == '/about'}"><span>О нас</span></a>
-      <a @click.prevent="goToLink('/rules')" href="/rules" :class="{header_main_active: $route.path == '/rules'}"><span>Правила</span></a>
+      <a @click.prevent="goToLink('/')" href="/" :class="{header_main_active: $route.path == '/'}"><span v-t="'header.index'" /></a>
+      <a @click.prevent="goToLink('/about')" href="/about" :class="{header_main_active: $route.path == '/about'}"><span v-t="'header.about'" /></a>
+      <a @click.prevent="goToLink('/rules')" href="/rules" :class="{header_main_active: $route.path == '/rules'}"><span v-t="'header.rules'" /></a>
     </div>
     <div class="header_util">
       <div class="header_util_container header_search desktop" :class="{'no-auth': isLoggedIn, active: searchInput || isSearchActive}" @click="isSearchActive = true" v-click-outside="() => {isSearchActive = false}">
@@ -41,20 +41,20 @@
               svg-inline
               class="icon dropdown-icon"
               src="@/assets/icons/btm-black.svg"
-              alt="example"
+              alt="dropdown"
             />
           </div>
           <div class="dropdown" v-if="isDropdownOpen" v-click-outside="() => {isDropdownOpen = false}">
             <ul>
               <li>
-                <router-link to="/account"><span>Аккаунт</span></router-link>
+                <router-link to="/account"><span v-t="'header.account'" /></router-link>
               </li>
-              <li @click="logout"><span>Выйти</span></li>
+              <li @click="logout"><span v-t="'header.logout'" /></li>
             </ul>
           </div>
         </template>
         <div class="header_util_style header_login-button desktop" v-else>
-          <span @click="isLoginModalOpen = true">Войти</span>
+          <span @click="isLoginModalOpen = true" v-t="'header.login'" />
         </div>
 
         <button class="hamburger hamburger--spin header_menu-button" @click="toggleMenu()" :class="{ 'is-active': isMenuActive }">
@@ -68,13 +68,13 @@
             <div class="header_menu">
               <ul class="header_menu_list">
                 <li>
-                  <a @click.prevent="goToLink('/')" href="/" :class="{header_main_active: $route.path == '/'}">Главная</a>
+                  <a @click.prevent="goToLink('/')" href="/" :class="{header_main_active: $route.path == '/'}" v-t="'header.index'" />
                 </li>
                 <li>
-                  <a @click.prevent="goToLink('/about')" href="/about" :class="{header_main_active: $route.path == '/about'}">О нас</a>
+                  <a @click.prevent="goToLink('/about')" href="/about" :class="{header_main_active: $route.path == '/about'}" v-t="'header.about'" />
                 </li>
                 <li>
-                  <a @click.prevent="goToLink('/rules')" href="/rules" :class="{header_main_active: $route.path == '/rules'}">Правила</a>
+                  <a @click.prevent="goToLink('/rules')" href="/rules" :class="{header_main_active: $route.path == '/rules'}" v-t="'header.rules'" />
                 </li>
               </ul>
               <div class="header_menu_footer">
@@ -84,7 +84,7 @@
                       svg-inline
                       class="icon header_util_rus no-ml"
                       :src="`/svg/${locale}.svg`"
-                      alt="example"
+                      :alt="locale"
                     />
                   </a>
                 </div>
@@ -114,7 +114,7 @@
       <div class="login-modal" v-if="isLoginModalOpen" v-bsl="isLoginModalOpen" :key="1" @click="isLoginModalOpen = false">
         <div class="login-modal__card" @click.stop>
           <button class="login-modal__close-button" @click="isLoginModalOpen = false"></button>
-          <h2 class="login-modal__title">Войти</h2>
+          <h2 class="login-modal__title" v-t="'header.login'" />
           <div class="login-modal__social-buttons">
             <a class="link vk" :href="`${apiUrl}/api/auth/vkontakte`">
               <img
