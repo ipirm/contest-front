@@ -5,7 +5,8 @@
 		"rules": "Правила",
 		"account": "Аккаунт",
 		"logout": "Выйти",
-		"login": "Войти"
+		"login": "Войти",
+    "search": "Поиск"
 	},
 
 	"share-modal": {

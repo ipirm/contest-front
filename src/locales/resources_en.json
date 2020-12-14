@@ -5,7 +5,8 @@
         "rules": "Rules",
         "account": "Account",
         "logout": "Logout",
-        "login": "Login"
+        "login": "Login",
+        "search": "Search"
     },
 
     "share-modal": {
