@@ -26,7 +26,7 @@
             alt="example"
             @click="isSearchActive ? searchStuff() : isSearchActive = true"
           />
-          <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" placeholder="Поиск" @keydown.enter="searchStuff()" @input="searchStuff()">
+          <input class="header_util_style header_search_input" v-model="searchInput" :class="{active: searchInput || isSearchActive}" :placeholder="$t('header.search')" @keydown.enter="searchStuff()" @input="searchStuff()">
         </div>
       </div>
       <div class="header_util_container header_util_style header_login_container">
