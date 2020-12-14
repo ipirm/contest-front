@@ -1,3 +1,100 @@
 {
-	
+    "description": {
+        "to-end": "To the end",
+        "created": "Created",
+        "starts": "Runs from",
+        "to": "to",
+        "place": "place",
+        "participate": "Participate",
+        "prizes-title": "Prize to the winners of the total amount collected"
+    },
+
+    "participate": {
+        "upload": "Upload a photo to participate in the contest",
+        "upload-file": "Upload file",
+        "max-size": "The maximum file size is 10 MB. JPEG, PNG formats.",
+        "participate": "Participate",
+        "auth": "Log in",
+        "cost": "participation fee"
+    },
+
+    "account": {
+        "images": "Your photos",
+        "edit": "Edit",
+        "save": "Save",
+        "cancel": "Cancel",
+        "voted": "Likes",
+        "most-votes": "Most votes received in",
+        "balance": "Balance",
+        "top-up": "Top up",
+        "contests": "Contests",
+        "place": "place",
+        "never-won": "You haven't won any contests yet"
+    },
+
+    "timer": {
+        "d": "d",
+        "h": "h",
+        "m": "m",
+        "s": "s"
+    },
+
+    "participants": {
+        "participants": "Participants",
+        "total-participants": "Participants",
+        "voted": "Voted"
+    },
+
+    "likes": {
+        "voted": "Voted in the contest"
+    },
+
+    "tooltips": {
+        "likes": {
+            "also": "show more",
+            "people": "people",
+            "more": "more"
+        }
+    },
+
+    "no-results": "No results were found for your search.",
+    "no-liked": "You haven't chosen anyone yet",
+    "your-choice": "Your choice",
+    "load-more": "Load more",
+    "close": "Close",
+    "you": "You",
+    "leader": "Leader",
+    "place": "Place",
+    "name": "Name",
+    "surname": "Surname",
+    "city": "City",
+    "age": "Age",
+    "copy": "Copy",
+    "copied": "Link copied",
+    "you-found": "You have found",
+
+    "sorting": {
+        "by-likes": "By number of likes",
+        "by-created-date": "By novelty",
+        "show-all": "Show all",
+        "user-likes": "By your choice",
+        "placeholder": "Sort by",
+        "random": "Randomly"
+    },
+
+    "toasted": {
+        "success": {
+            "participation": "After moderation, we will inform you about your participation status",
+            "user-data": "User data was updated successfully",
+            "avatar": "Avatar updated successfully"
+        },
+
+        "error": {
+            "participation": "An error occurred while trying to add to the list of participants",
+            "participation-already": "You are already participating in this concert",
+            "user-data": "An error occurred while trying to update the user's data",
+            "like": "An error occurred when trying to put a like / dislike",
+            "avatar": "An error occurred while trying to update the avatar"
+        }
+    }
 }
