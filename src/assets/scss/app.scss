@@ -709,7 +709,8 @@ footer {
   opacity: 0.5;
 }
 .description_prizes {
-  margin-top: 60px;
+  margin-top: 10px;
+  text-align: right;
 
   .title {
   	font-size: 16px;
@@ -721,6 +722,7 @@ footer {
 
   .prizes {
   	display: flex;
+  	justify-content: flex-end;
   }
 
   .prize {
@@ -792,6 +794,10 @@ footer {
   align-items: flex-end;
   margin-right: 16px;
 
+  span {
+  	color: #FF3131;
+  }
+
   &:last-of-type {
   	margin-right: 0;
   }
@@ -812,6 +818,7 @@ footer {
 .description_days {
   display: flex;
   flex-direction: column;
+  text-align: right;
 }
 body {
   background: #f7f7f7;
@@ -838,6 +845,7 @@ body {
   align-items: center;
   margin-bottom: -5px;
   width: 290px;
+  display: block;
   white-space: nowrap;
 }
 .btn_contest_participate {
@@ -846,7 +854,7 @@ body {
   letter-spacing: 0.1em;
   width: 200px;
   height: 60px;
-  margin-left: auto;
+  margin-top: 30px;
   text-transform: uppercase;
   color: $white;
   background: $main-color;
@@ -1163,12 +1171,17 @@ body {
 .participates_util_wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-right: 400px;
 }
 .participates_util {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   position: relative;
+  height: 43px;
 }
 
 .participates_util_order {
