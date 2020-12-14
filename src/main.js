@@ -18,11 +18,7 @@ import VueLazyload from 'vue-lazyload'
  
 i18n.locale = lsService.getLocale();
 
-// const moment = require('moment');
 require('moment/locale/ru');
-// Vue.use(require('vue-moment'), {
-// 	moment
-// });
 
 Vue.use(VueClipboard);
 Vue.use(VueLazyload)
