@@ -5,6 +5,7 @@
   }
   .participates_util_wrapper {
     flex-direction: column;
+    justify-content: unset;
   }
   .description_text_subtitle {
     width: 400px;
@@ -19,13 +20,6 @@
     padding: 77px 50px 148px 50px !important;
     max-width: 1080px;
   }
-  .description_days {
-    > div {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-  }
 }
 
 @media (max-width: 1200px) {
@@ -38,7 +32,7 @@
   }
 
   .header_main {
-    margin-left: 30px;
+    margin-left: 60px;
   }
 
   .header_util {
@@ -143,6 +137,17 @@
 @media (max-width: 780px) {
   .contest_item {
     width: 210px;
+  }
+  .description_prizes {
+    .prizes {
+      text-align: left;
+      justify-content: flex-start;
+
+      .prize {
+        margin-left: 0;
+        margin-right: 32px;
+      }
+    }
   }
   .user {
     flex-direction: column;
@@ -312,6 +317,7 @@
     display: block;
   }
   .description_prizes {
+    width: 100%;
     margin-top: 0;
   }
   .description_text_date {
@@ -348,12 +354,6 @@
   .description_days {
     > div:last-of-type {
       margin-left: unset;
-    }
-  }
-  .description_prizes {
-    .prizes {
-      text-align: left;
-      justify-content: flex-start;
     }
   }
   .btn_participate span {
