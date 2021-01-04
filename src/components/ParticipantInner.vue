@@ -5,8 +5,8 @@
       <div class="participates_item_img" @click="$emit('show-photo', index)" @mouseenter="startRolling()" @mouseleave="stopRolling()">
         <div v-swiper:mySwiper="swiperOption">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" :key="i" v-for="(image, i) in item.images">
-              <img class="swiper-lazy" v-lazy="image.url" :alt="item.user.name + ' ' + item.user.last_name">
+            <div class="swiper-slide" :key="`${index}-${i}`" v-for="(image, i) in item.images">
+              <img class="swiper-lazy" :src="image.url" :alt="item.user.name + ' ' + item.user.last_name">
             </div>
           </div>
         </div>
