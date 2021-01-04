@@ -177,6 +177,16 @@ export default {
     }
   },
 
+  watch: {
+    '$route.path'() {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.setLinePosition();
+        }, 500);
+      });
+    }
+  },
+
   methods: {
     ...mapMutations(['removeUser', 'setLocale', 'setPage', 'setSearchLoading']),
     ...mapActions(['getParticipants', 'search']),
@@ -219,11 +229,6 @@ export default {
       this.isMenuActive = false;
       this.$router.push('/').catch(() => {});
       this.$router.push(link).catch(() => {});
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.setLinePosition();
-        }, 500);
-      });
     },
 
     logout() {

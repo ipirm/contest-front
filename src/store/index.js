@@ -165,6 +165,14 @@ export default new Vuex.Store({
 			}
 		},
 
+		async getAdminTable({ commit, state }, query) {
+			commit('increaseSearchNumber');
+
+			let res = await api.get(`api/concerts/findAdmin/1?limit=15&page=${query.page}`);
+
+			commit('setParticipants', res.data);
+		},
+
 		async getParticipantsByLinkID({ commit, state }, referrerID) {
 			commit('increaseSearchNumber');
 			let res;

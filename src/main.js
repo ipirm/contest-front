@@ -16,12 +16,14 @@ import vClickOutside from 'v-click-outside'
 import Toasted from 'vue-toasted';
 import VueLazyload from 'vue-lazyload'
 import LoadScript from 'vue-plugin-load-script';
+import SortedTablePlugin from "vue-sorted-table";
 
 i18n.locale = lsService.getLocale();
-require('moment/locale/ru');
 
+require('moment/locale/ru');
 Vue.use(VueClipboard);
 
+Vue.use(SortedTablePlugin);
 Vue.use(VueLazyload)
 Vue.use(LoadScript);
 Vue.component(VueCountdown.name, VueCountdown);
