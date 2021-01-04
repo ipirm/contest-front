@@ -1805,7 +1805,7 @@ body {
   color: #000000;
 }
 
-img[lazy=loading] {
+img[lazy=loading], .swiper-lazy {
   background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 40px, #ddd 80px);
   animation: shine 2s infinite;
   animation-delay: 0s;
