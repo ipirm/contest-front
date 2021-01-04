@@ -184,6 +184,19 @@ export default new Vuex.Store({
 			commit('setParticipants', res.data);
 		},
 
+		async setApproveStatus({state}, data) {
+			if (state.user && state.user.role === 'admin') {
+				await api.put(`api/concertUser/${data.id}`, {
+					approve: data.approve
+				}).then(() => {
+					this._vm.$toasted.error(`The user with id ${data.id} was successfully ${data.approve ? 'approved' : 'declined'}`);
+				}).catch(e => {
+					this._vm.$toasted.error(`There was an error when ${data.approve ? 'approving' : 'declining'} a user with id ${data.id}. Please, check the console`);
+					throw e
+				});
+			}
+		},
+
 		async getMoreParticipants({ commit, state }, query) {
 			commit('setLastQuery', query || null);
 			commit('increaseSearchNumber');

@@ -3,6 +3,9 @@
     <sorted-table :values="participants.items || []">
       <thead>
       <tr>
+        <th scope="col" style="width: 50px">
+          <span>ID</span>
+        </th>
         <th scope="col" style="width: 200px">
           <span>First Name</span>
         </th>
@@ -23,6 +26,9 @@
             :key="`${searchNumber}-${i}`"
         >
           <td>
+            <span>{{ participant.userId }}</span>
+          </td>
+          <td>
             <span>{{ participant.user.name }}</span>
           </td>
           <td><span>{{ participant.user.last_name }}</span></td>
@@ -30,7 +36,7 @@
             <admin-swiper :participant="participant" />
           </td>
           <td>
-            <button class="admin-page__button" :class="{active: approveList[i]}" @click="onButtonClick(i)"></button>
+            <button class="admin-page__button" :class="{active: approveList[i]}" @click="onButtonClick(i, participant.userId)"></button>
           </td>
         </tr>
       </tbody>
@@ -60,28 +66,40 @@ export default {
     if (this.user && this.user.role === 'admin') {
       this.getAdminTable({page: this.page});
     } else {
-      // this.$router.push('/')
+      this.$router.push('/')
     }
   },
 
   watch: {
-    participants() {
-      this.approveList = (new Array(this.participants.items.length)).fill(false)
+    participants: {
+      handler() {
+        if (this.participants && this.participants.items && this.participants.items.length)
+          this.approveList = this.participants.items.map(i => i.approve);
+      },
+      immediate: true
     }
   },
 
   computed: {
-    ...mapState(['user', 'participants'])
+    ...mapState(['user', 'participants', 'searchNumber'])
   },
 
   methods: {
-    ...mapActions(['getAdminTable']),
+    ...mapActions(['getAdminTable', 'setApproveStatus']),
     ...mapMutations(['setParticipants']),
 
-    onButtonClick(i) {
+    onButtonClick(i, id) {
       this.approveList[i] = !this.approveList[i];
       this.approveList.push({})
       this.approveList.pop()
+      this.setApproveStatus({
+        approve: this.approveList[i],
+        id
+      }).catch(() => {
+        this.approveList[i] = !this.approveList[i];
+        this.approveList.push({})
+        this.approveList.pop()
+      })
     }
   }
 }
