@@ -3,9 +3,8 @@
     <div class="header_logo">
       <router-link class="header_logo_img" to="/">
         <img
-          svg-inline
           class="icon svg-stroke-color"
-          src="@/assets/icons/logo.svg"
+          src="/img/logo.png"
           alt="Miss Instagram 2020"
         />
       </router-link>
@@ -35,9 +34,6 @@
             <img :src="user.avatar" />
             <div class="header_login">
               <span> {{ user.name }} </span>
-              <p>
-                {{ user.balance }}
-              </p>
             </div>
           </router-link>
           <div class="dropdown-icon_wrapper" @click="isDropdownOpen = !isDropdownOpen">
@@ -104,13 +100,6 @@
           :src="`/svg/${locale}.svg`"
           alt="example"
         />
-
-        <!-- <img
-          svg-inline
-          class="icon"
-          src="@/assets/icons/btm-black.svg"
-          alt="example"
-        /> -->
       </a>
     </div>
 

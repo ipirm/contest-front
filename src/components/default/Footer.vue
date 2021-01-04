@@ -3,9 +3,8 @@
     <div class="footer_logo">
       <a class="header_logo_img">
         <img
-          svg-inline
           class="icon svg-path-color"
-          src="@/assets/icons/logo.svg"
+          src="/img/logo.png"
           alt="Miss instagram 2020"
         />
       </a>

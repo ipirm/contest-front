@@ -15,13 +15,15 @@ import 'swiper/swiper-bundle.css'
 import vClickOutside from 'v-click-outside'
 import Toasted from 'vue-toasted';
 import VueLazyload from 'vue-lazyload'
- 
-i18n.locale = lsService.getLocale();
+import LoadScript from 'vue-plugin-load-script';
 
+i18n.locale = lsService.getLocale();
 require('moment/locale/ru');
 
 Vue.use(VueClipboard);
+
 Vue.use(VueLazyload)
+Vue.use(LoadScript);
 Vue.component(VueCountdown.name, VueCountdown);
 Swiper.use([EffectFade, Pagination]);
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)

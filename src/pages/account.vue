@@ -39,18 +39,10 @@
               </div>
             </div>
           </div>
-          <div class="user_statistics">
-            <div class="user_statistics_wrapper" v-if="userConcerts">
-              <div class="user_statistics_container" v-if="user && user.concertsUsers && user.concertsUsers[0] && user.concertsUsers[0]">
-                <p class="user_statistics_number">{{ user.concertsUsers[0].likesCount }}</p>
-                <p class="user_statistics_text" v-t="'account.voted'" />
-              </div>
-            </div>
-          </div>
-          <div class="user_balans">
-            <p class="user_balans_text" v-t="'account.balance'" />
+          <div class="user_balans" v-if="user && user.concertsUsers && user.concertsUsers[0] && user.concertsUsers[0]">
+            <p class="user_balans_text" v-t="'account.voted'" />
             <p class="user_balans_maining">
-              {{ user.balance }}
+              {{ user.concertsUsers[0].likesCount }}
             </p>
             <!-- <a class="btn_style btn_add"><span v-t="'account.top-up'" /></a> -->
           </div>

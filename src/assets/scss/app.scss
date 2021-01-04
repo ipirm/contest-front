@@ -45,14 +45,16 @@ svg {
   line-height: 22px;
   color: $main-color;
 
-  svg {
-  	height: 50px;
+  img {
+    width: 70px;
+  	height: 70px;
   }
 }
 .footer_logo {
 	.header_logo_img {
-		svg {
-			height: 70px;
+		img {
+			width: 100px;
+			height: 100px;
 		}
 	}
 }
@@ -341,7 +343,7 @@ header {
     text-align: center;
 
     &-icon {
-      padding: 5px 6px 13px;
+      padding: 12px 6px 6px;
       min-width: 22px;
       min-height: 29px;
       outline: none;
@@ -1418,6 +1420,7 @@ body {
 }
 .participate_popup_title {
   margin-bottom: 44px;
+  margin-top: auto;
 }
 .participate_popup_title p {
   text-align: center;
@@ -1529,6 +1532,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-bottom: auto;
 }
 .upload_exit svg path {
   fill: $white;
@@ -1554,6 +1558,7 @@ body {
   align-items: center;
   background-color: $white;
   padding: 24px 24px 49px 24px;
+  overflow-y: auto;
 }
 .user_statistics_dignity {
   display: flex;
@@ -1616,6 +1621,10 @@ body {
   opacity: 0.5;
 }
 
+#paypal-btn {
+  width: 100%;
+}
+
 .user_balans_maining {
   font-family: Commissioner;
   font-style: normal;
@@ -1623,7 +1632,7 @@ body {
   font-size: 36px;
   line-height: 44px;
   text-align: right;
-  color: #000000;
+  color: #eeb609;
   margin-bottom: 16px;
 }
 .user_balans {
@@ -2150,6 +2159,8 @@ img[lazy=loading], .swiper-lazy {
   .swiper-container {
     overflow: hidden;
     width: 100%;
+    min-height: 120px;
+    max-width: 544px;
   }
 
   .participate_popup_photo_item {
@@ -2172,7 +2183,7 @@ img[lazy=loading], .swiper-lazy {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  max-height: 640px;
+  max-height: 751px;
   height: 100%;
   z-index: 1;
 }

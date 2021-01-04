@@ -13,6 +13,10 @@
         "title": "Help your friends find you 🙆‍♀️"
     },
 
+    "paypal": {
+      "decline": "There was a problem with payment"
+    },
+
     "footer": {
         "index": "Main",
         "about": "About us",
@@ -35,7 +39,8 @@
         "max-size": "The maximum file size is 10 MB. JPEG, PNG formats.",
         "participate": "Participate",
         "auth": "Log in",
-        "cost": "participation fee"
+        "cost": "participation fee",
+        "payment": "Pay to participate in"
     },
 
     "account": {
