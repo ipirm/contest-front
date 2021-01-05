@@ -5,26 +5,9 @@ import store from '../store';
 const Account = () => import(/* webpackChunkName: "account" */ '../pages/account.vue')
 const TextPage = () => import(/* webpackChunkName: "textPage" */ '../pages/_text-page.vue')
 const Index = () => import(/* webpackChunkName: "index" */ '../pages/index.vue')
-
+const Admin = () => import(/* webpackChunkName: "index" */ '../pages/admin.vue')
 
 Vue.use(VueRouter)
-
-// const ifNotAuthenticated = (to, from, next) => {
-//     if (!store.getters['auth/isAuthenticated']) {
-//         next()
-//         return
-//     }
-//     next('/users')
-// }
-
-// const ifAuthenticated = (to, from, next) => {
-//     if (store.getters['auth/isAuthenticated']) {
-//         next()
-//         return
-//     }
-//     next('/login')
-// }
-
 
 const router = new VueRouter({
     mode: 'history',
@@ -33,6 +16,11 @@ const router = new VueRouter({
             path: '/account',
             component: Account,
             name: 'account'
+        },
+        {
+            path: '/admin',
+            component: Admin,
+            name: 'admin'
         },
         {
             path: '/:name',
