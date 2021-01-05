@@ -168,7 +168,7 @@ export default new Vuex.Store({
 		async getAdminTable({ commit, state }, query) {
 			commit('increaseSearchNumber');
 
-			let res = await api.get(`api/concerts/findAdmin/1?limit=15&page=${query.page}`);
+			let res = await api.get(`api/concerts/findAdmin/1?limit=${query.perPage}&page=${query.page}`);
 
 			commit('setParticipants', res.data);
 		},
@@ -186,10 +186,10 @@ export default new Vuex.Store({
 
 		async setApproveStatus({state}, data) {
 			if (state.user && state.user.role === 'admin') {
-				await api.put(`api/concertUser/${data.id}`, {
+				await api.put(`api/concerts/concertUsers/${data.id}`, {
 					approve: data.approve
 				}).then(() => {
-					this._vm.$toasted.error(`The user with id ${data.id} was successfully ${data.approve ? 'approved' : 'declined'}`);
+					this._vm.$toasted.success(`The user with id ${data.id} was successfully ${data.approve ? 'approved' : 'declined'}`);
 				}).catch(e => {
 					this._vm.$toasted.error(`There was an error when ${data.approve ? 'approving' : 'declining'} a user with id ${data.id}. Please, check the console`);
 					throw e

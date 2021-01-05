@@ -26,7 +26,7 @@
             :key="`${searchNumber}-${i}`"
         >
           <td>
-            <span>{{ participant.userId }}</span>
+            <span>{{ participant.id }}</span>
           </td>
           <td>
             <span>{{ participant.user.name }}</span>
@@ -36,11 +36,12 @@
             <admin-swiper :participant="participant" />
           </td>
           <td>
-            <button class="admin-page__button" :class="{active: approveList[i]}" @click="onButtonClick(i, participant.userId)"></button>
+            <button class="admin-page__button" :class="{active: approveList[i]}" @click="onButtonClick(i, participant.id)"></button>
           </td>
         </tr>
       </tbody>
     </sorted-table>
+    <pagination :per-page="perPage" v-model="page" :total-elems="participants.meta.totalItems" v-if="participants && participants.meta && participants.meta.totalPages > 1" />
 	</div>
 </template>
 
@@ -49,12 +50,14 @@ import {mapState, mapActions, mapMutations} from 'vuex'
 
 export default {
   components: {
-    AdminSwiper: () => import('@/components/AdminSwiper.vue')
+    AdminSwiper: () => import('@/components/AdminSwiper.vue'),
+    Pagination: () => import('@/components/Pagination.vue')
   },
 
   data() {
     return {
       page: 1,
+      perPage: 10,
 
       approveList: []
     }
@@ -64,7 +67,7 @@ export default {
     this.setParticipants(null);
 
     if (this.user && this.user.role === 'admin') {
-      this.getAdminTable({page: this.page});
+      this.getAdminTable({page: this.page, perPage: this.perPage});
     } else {
       this.$router.push('/')
     }
@@ -73,10 +76,18 @@ export default {
   watch: {
     participants: {
       handler() {
-        if (this.participants && this.participants.items && this.participants.items.length)
-          this.approveList = this.participants.items.map(i => i.approve);
-      },
-      immediate: true
+        if (this.participants && this.participants.items && this.participants.items.length) {
+          this.approveList = this.participants.items.sort((a, b) => (a.id > b.id) ? 1 : -1).map(i => i.approve);
+          this.approveList.push({})
+          this.approveList.pop()
+        }
+      }
+    },
+
+    page: {
+      handler() {
+        this.getAdminTable({page: this.page, perPage: this.perPage});
+      }
     }
   },
 
