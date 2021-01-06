@@ -179,17 +179,24 @@ export default {
 
   watch: {
     '$route.path'() {
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.setLinePosition();
-        }, 500);
-      });
+      this.updateLinePosition();
+    },
+    '$i18n.locale'() {
+      this.updateLinePosition();
     }
   },
 
   methods: {
     ...mapMutations(['removeUser', 'setLocale', 'setPage', 'setSearchLoading']),
     ...mapActions(['getParticipants', 'search']),
+
+    updateLinePosition() {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.setLinePosition();
+        }, 500);
+      });
+    },
 
     setLinePosition() {
       // set the bottom line
