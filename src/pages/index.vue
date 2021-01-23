@@ -22,7 +22,7 @@
         </div>
         <div class="description_days">
           <div>
-            <countdown :time="Math.max(startDateTimestamp - moment().unix() * 1000, 0)" :transform="transform" class="description_days_title style_title">
+            <countdown :time="Math.max(endDateTimestamp - startDateTimestamp + (startDateTimestamp - moment().unix() * 1000 < 0 ? 0 : startDateTimestamp - moment().unix() * 1000), 0)" :transform="transform" class="description_days_title style_title">
               <template slot-scope="props">
                 {{ props.days }}{{ $t('timer.d') }} : {{ props.hours }}{{ $t('timer.h') }} : {{ props.minutes }}{{ $t('timer.m') }}
                 : {{ props.seconds }}{{ $t('timer.s') }}
@@ -260,6 +260,11 @@ export default {
 
     startDateTimestamp() {
       const date = this.concert.startDate.split('.');
+      return (new Date(date[2], date[1] - 1, date[0])).getTime();
+    },
+
+    endDateTimestamp() {
+      const date = this.concert.endDate.split('.');
       return (new Date(date[2], date[1] - 1, date[0])).getTime();
     },
 

@@ -2006,7 +2006,6 @@ img[lazy=loading], .swiper-lazy {
   }
 }
 .text-page_title h1 {
-  height: 59px;
   font-family: Commissioner;
   font-style: normal;
   font-weight: normal;
@@ -2014,6 +2013,7 @@ img[lazy=loading], .swiper-lazy {
   line-height: 59px;
   color: $main-color;
   margin-bottom: 24px;
+  text-align: center;
 }
 .text-page_title {
   display: flex;
@@ -2032,6 +2032,17 @@ img[lazy=loading], .swiper-lazy {
   color: #000000;
   margin-bottom: 26px;
 }
+
+.text-page {
+  li {
+    margin-bottom: 5px;
+
+    &.inner {
+      margin-left: 20px;
+    }
+  }
+}
+
 .text-page p {
   font-family: Commissioner;
   font-style: normal;
