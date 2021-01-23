@@ -1,7 +1,7 @@
 {
     "header": {
         "index": "Main",
-        "about": "About us",
+        "about": "About The Contest",
         "rules": "Rules",
         "account": "Account",
         "logout": "Logout",
@@ -19,8 +19,23 @@
 
     "footer": {
         "index": "Main",
-        "about": "About us",
+        "about": "About The Contest",
         "rules": "Rules"
+    },
+
+    "accept-rules-modal": {
+        "accept": "Accept",
+        "rules": "Rules",
+        "success": "You have successfully accepted the rules",
+        "must": "You must first accept the rules (reload the page if you don't have the accept window)"
+    },
+
+    "text-page": {
+        "about": "About The Contest",
+        "rules": "Rules",
+
+        "about-content": "<p><b>Beauty Battle Queen</b> is a unique, unprecedented beauty contest in which the winners are determined by the Internet community, not by a jury.<br><br>The absence of a jury ensures the highest possible level of impartiality and fairness of choice winners. Any user of the social network Facebook, Instagram, Vkontakte or You Tube can take part in the selection of the winners of the competition by simply clicking \"like\" on the photographs chosen by them.<br><br>Our principle is simple, <i>“Those who will win will be chosen by society.”</i><br><br>Along with the opportunity to get on the front pages of magazines and movies, to become famous and famous, the winners of the <b>Beauty Battle Queen</b> competition also receive serious cash prizes for winning the competition. The prize fund of the <b>Beauty Battle Queen</b> contest is equal to 30% of the total amount of fees paid by all contestants around the world and can reach impressive amounts.<br><br>The prize fund is distributed as follows:</p><ul><li>1. first place - 15% of the total fees paid by all participants;</li><li>2. second place - 10% of the total fees paid by all participants;</li><li>3. third place - 5% of the total amount of fees.</li></ul><br><p>If you are over 18 years old, you consider yourself attractive and want to get the opportunity to become famous and receive a cash prize, then Beauty Battle Queen is your opportunity.<br><br>Keep in touch: <a target=\"blank\" href=\"mail:email@beautybattle.net\">email@beautybattle.net</a></p>",
+        "rules-content": ""
     },
 
     "description": {

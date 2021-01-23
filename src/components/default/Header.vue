@@ -83,7 +83,7 @@
                     <img
                       svg-inline
                       class="icon header_util_rus no-ml"
-                      :src="`/svg/${locale}.svg`"
+                      :src="`/svg/${locale === 'EN' ? 'RU' : 'EN'}.svg`"
                       :alt="locale"
                     />
                   </a>
@@ -97,7 +97,7 @@
         <img
           svg-inline
           class="icon header_util_rus"
-          :src="`/svg/${locale}.svg`"
+          :src="`/svg/${locale === 'EN' ? 'RU' : 'EN'}.svg`"
           alt="example"
         />
       </a>
@@ -179,24 +179,17 @@ export default {
 
   watch: {
     '$route.path'() {
-      this.updateLinePosition();
-    },
-    '$i18n.locale'() {
-      this.updateLinePosition();
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.setLinePosition();
+        }, 500);
+      });
     }
   },
 
   methods: {
     ...mapMutations(['removeUser', 'setLocale', 'setPage', 'setSearchLoading']),
     ...mapActions(['getParticipants', 'search']),
-
-    updateLinePosition() {
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.setLinePosition();
-        }, 500);
-      });
-    },
 
     setLinePosition() {
       // set the bottom line

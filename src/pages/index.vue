@@ -1,5 +1,6 @@
 <template>
   <div class="contest">
+    <accept-rules-modal v-if="user" :user="user" />
     <div class="contest-page" @click="activeSort = false">
       <div class="description" v-if="concert">
         <div class="description_text">
@@ -16,9 +17,7 @@
           <div class="description_text_date style_text">
             <p>{{ $t('description.starts') }} {{ moment(concert.startDate, 'DD.MM.YYYY').format('DD MMMM YYYY') + ($i18n.locale === 'EN' ? '' : 'г') }} {{ $t('description.to') }} {{ moment(concert.endDate, 'DD.MM.YYYY').format('DD MMMM YYYY') + ($i18n.locale === 'EN' ? '' : 'г') }}</p>
           </div>
-          <p class="description_text_main-text style_text" ref="descriptionText" :class="{active: isTextShown}">
-            {{ $i18n.locale === 'RU' ? concert.description : ($i18n.locale === 'EN' ? concert.description__en : '') }}
-          </p>
+          <p class="description_text_main-text style_text" ref="descriptionText" :class="{active: isTextShown}" v-html="$i18n.locale === 'RU' ? concert.description : ($i18n.locale === 'EN' ? concert.description__en : '')"></p>
           <div class="btn_style btn_contest_participate" v-if="user && user.concertsUsers && !user.concertsUsers.length || !user" @click="activeLoad = true" v-show="showParticipateBtn" v-t="'description.participate'" />
         </div>
         <div class="description_days">
@@ -85,9 +84,16 @@
             <div id="paypal-btn" v-if="showPaypal"></div>
             <div class="participate_popup_footer">
               <template v-if="!showPaypal">
-                <div class="btn_participate btn_style popup_btn-style" @click="onParticipate()" v-if="user">
-                  <span v-t="'participate.participate'" />
-                </div>
+                <template v-if="user">
+                  <div class="checkbox-wrapper participate_popup_footer_check" @click="onCheckRulesClick">
+                    <span class="checkbox" :class="{active: acceptedRules}"></span>
+                    <span class="text" v-t="'accept-rules-modal.accept'" />
+                    <a target="_blank" href="/rules" @click.stop class="text" v-t="'accept-rules-modal.rules'" />
+                  </div>
+                  <button class="btn_participate btn_style popup_btn-style" @click="onParticipate()" :disabled="!acceptedRules">
+                    <span v-t="'participate.participate'" />
+                  </button>
+                </template>
                 <div class="btn_participate btn_style popup_btn-style" v-else @click="toAuth()">
                   <span v-t="'participate.auth'" />
                 </div>
@@ -172,7 +178,8 @@ import { mapState, mapActions, mapMutations } from 'vuex'
 export default {
   components: {
     InfiniteLoading: () => import('vue-infinite-loading'),
-    ParticipantInner: () => import('@/components/ParticipantInner')
+    ParticipantInner: () => import('@/components/ParticipantInner'),
+    AcceptRulesModal: () => import('@/components/AcceptRulesModal')
   },
 
   data() {
@@ -189,6 +196,8 @@ export default {
       isTextShown: false,
       showPaypal: false,
       showParticipateBtn: true,
+
+      acceptedRules: false,
 
       activeSort: false,
       activeLoad: false,
@@ -235,7 +244,7 @@ export default {
 
     // paypal
     if (!window.paypal) {
-      this.$loadScript("https://www.paypal.com/sdk/js?client-id=AXfo2FV-8SU_Ic6eJ_3bNkn_Z4JItRctU2NfFrXH9AJm3tJfzrQHTiIRjbMD3pufW8OgGPL1hIF_-n5T")
+      this.$loadScript("https://www.paypal.com/sdk/js?client-id=AQz9Pv7EbWbvk9_R2WT5j6UdP_DU-NzxQD5WFDhCRmx-ld9VlZ6uB1G_fr8itncYFnnDDUwn6OLAgYB9")
           .catch(() => {
             console.error('Paypal could not be loaded, please reload the page')
           })
@@ -284,7 +293,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['participate', 'getConcert', 'getParticipants', 'getMoreParticipants', 'search', 'getParticipantsByLinkID']),
+    ...mapActions(['participate', 'acceptRules', 'getConcert', 'getParticipants', 'getMoreParticipants', 'search', 'getParticipantsByLinkID']),
     ...mapMutations(['increasePage']),
 
     toAuth() {
@@ -339,6 +348,13 @@ export default {
         setTimeout(() => {
           $state.loaded();
         }, 5000);
+      }
+    },
+
+    async onCheckRulesClick() {
+      this.acceptedRules = !this.acceptedRules;
+      if (this.acceptedRules) {
+        this.acceptRules();
       }
     },
 
