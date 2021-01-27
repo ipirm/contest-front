@@ -1461,10 +1461,13 @@ body {
   flex-direction: column;
 }
 .btn-exit-aligne {
-  margin-left: auto;
   width: 14px;
   height: 14px;
   margin-bottom: 24px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  cursor: pointer;
 }
 .participate_popup_title {
   margin-bottom: 44px;
@@ -1605,15 +1608,13 @@ body {
 }
 .participate_popup {
   max-width: 640px;
-  width: 100%;
   height: 790px;
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   background-color: $white;
-  padding: 24px 24px 49px 24px;
+  padding: 40px 24px 49px 24px;
   overflow-y: auto;
+  position: relative;
 }
 .user_statistics_dignity {
   display: flex;
