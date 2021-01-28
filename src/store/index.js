@@ -165,6 +165,15 @@ export default new Vuex.Store({
 			}
 		},
 
+		async acceptRules({ dispatch }) {
+			await api.get('api/user/accept-rules/true').then(() => {
+				this._vm.$toasted.success(i18n.t('accept-rules-modal.success'));
+				dispatch('getUser');
+			}).catch(e => {
+				console.log(e)
+			})
+		},
+
 		async getAdminTable({ commit, state }, query) {
 			commit('increaseSearchNumber');
 

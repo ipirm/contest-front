@@ -83,7 +83,7 @@
                     <img
                       svg-inline
                       class="icon header_util_rus no-ml"
-                      :src="`/svg/${locale}.svg`"
+                      :src="`/svg/${locale === 'EN' ? 'RU' : 'EN'}.svg`"
                       :alt="locale"
                     />
                   </a>
@@ -97,7 +97,7 @@
         <img
           svg-inline
           class="icon header_util_rus"
-          :src="`/svg/${locale}.svg`"
+          :src="`/svg/${locale === 'EN' ? 'RU' : 'EN'}.svg`"
           alt="example"
         />
       </a>

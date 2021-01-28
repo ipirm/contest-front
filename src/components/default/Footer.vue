@@ -39,14 +39,6 @@
           alt="instagram"
         />
       </a>
-      <a>
-        <img
-          svg-inline
-          class="icon svg-path-color"
-          src="@/assets/icons/youtube.svg"
-          alt="youtube"
-        />
-      </a>
     </div>
   </footer>
 </template>
