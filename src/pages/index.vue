@@ -244,7 +244,7 @@ export default {
 
     // paypal
     if (!window.paypal) {
-      this.$loadScript("https://www.paypal.com/sdk/js?client-id=AQz9Pv7EbWbvk9_R2WT5j6UdP_DU-NzxQD5WFDhCRmx-ld9VlZ6uB1G_fr8itncYFnnDDUwn6OLAgYB9")
+      this.$loadScript("https://www.paypal.com/sdk/js?client-id=ASzvgL7insWzlrgvxuzQ-tBWvVeNrok_51h3ViD2RYCmOMJ8rwral1Nvux8DOMMQyIxfAcTXSwPKDK8d")
           .catch(() => {
             console.error('Paypal could not be loaded, please reload the page')
           })
