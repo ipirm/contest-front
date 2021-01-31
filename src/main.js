@@ -9,7 +9,6 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import i18n from './locales'
 import lsService from './services/lsService'
 import VueClipboard from 'vue-clipboard2'
-import VueLoading from 'vue-loading-overlay';
 import VueCountdown from '@chenfengyuan/vue-countdown';
 import 'swiper/swiper-bundle.css'
 import vClickOutside from 'v-click-outside'
@@ -17,14 +16,10 @@ import Toasted from 'vue-toasted';
 import VueLazyload from 'vue-lazyload'
 import LoadScript from 'vue-plugin-load-script';
 import SortedTablePlugin from "vue-sorted-table";
-import 'vue-loading-overlay/dist/vue-loading.css';
-
 i18n.locale = lsService.getLocale();
 
 require('moment/locale/ru');
 Vue.use(VueClipboard);
-Vue.use(VueLoading);
-Vue.component('loading', VueLoading)
 Vue.use(SortedTablePlugin);
 Vue.use(VueLazyload)
 Vue.use(LoadScript);

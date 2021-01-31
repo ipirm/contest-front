@@ -84,6 +84,18 @@ export default new Vuex.Store({
 
 		setUserConcerts (state, concerts) {
 			state.userConcerts = concerts;
+		},
+
+		like (state, data) {
+			if (state.user && state.participants && state.participants[data.type]) {
+				state.participants[data.type].find(p => p.userId == data.id).likesCount++;
+			}
+		},
+
+		dislike (state, data) {
+			if (state.user && state.participants && state.participants[data.type]) {
+				state.participants[data.type].find(p => p.userId == data.id).likesCount--;
+			}
 		}
 	},
 
@@ -229,13 +241,17 @@ export default new Vuex.Store({
 			}
 		},
 
-		async like({dispatch, state}, data) {
+		async like({state, commit}, data) {
 			if (state.user) {
+				if (data.isLike) {
+					commit('like', {type: data.participantType, id: data.userId.toString()})
+				} else {
+					commit('dislike', {type: data.participantType, id: data.userId.toString()})
+				}
+
 				await api.post(data.isLike ? 'api/like' : 'api/like/delete', {
 					concertId: '1',
 					userId: data.userId.toString()
-				}).then(() => {
-					dispatch('getParticipants', state.lastQuery);
 				}).catch(e => {
 					this._vm.$toasted.error(i18n.t('toasted.error.like'));
 					console.log(e);

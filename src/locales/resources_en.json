@@ -113,6 +113,9 @@
     "copy": "Copy",
     "copied": "Link copied",
     "you-found": "You have found",
+    "auth-please": "Please, authenticate first",
+    "upload-1": "Please, upload at least 1 photo",
+    "page-title": "Beauty Battle Queen",
 
     "sorting": {
         "by-likes": "Number of likes",

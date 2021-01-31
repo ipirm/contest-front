@@ -186,11 +186,10 @@ export default {
 
     likePlease() {
       if (this.user) {
-        this.$emit('set-loading');
         this.firstTime = false;
         const liked = !this.item.user.likes.find(i => i.user_id ? i.user_id == this.user.id : false)
         this.liked = liked;
-        this.like({userId: this.item.user.id, isLike: liked})
+        this.like({userId: this.item.user.id, isLike: liked, participantType: this.index.split('-')[0]})
       }
       else this.$root.$emit('auth')
     }

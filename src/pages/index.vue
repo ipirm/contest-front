@@ -139,26 +139,22 @@
           </div>
         </div>
         <div class="participate_wrapper" v-if="participants" :class="{all: loadedAllParticipants}">
-          <loading :active.sync="loading"
-                   :can-cancel="false"
-                   :is-full-page="false"></loading>
-          
           <div class="participate_wrapper_overlay" v-if="participants.linkItem">
-            <ParticipantInner @set-loading="loading = true" :item="participants.linkItem" :found="true" :index="`linkItem-1-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+            <ParticipantInner :item="participants.linkItem" :found="true" :index="`linkItem-1-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
           </div>
           <template v-if="participants.firstConcerts">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.firstConcerts" :key="`firstConcerts-${i}-${searchNumber}`">
-              <ParticipantInner @set-loading="loading = true" :item="item" :index="`firstConcerts-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+              <ParticipantInner :item="item" :index="`firstConcerts-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
           <template v-if="participants.leaders">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.leaders" :key="`leaders-${i}-${searchNumber}`">
-              <ParticipantInner @set-loading="loading = true" :item="item" :index="`leaders-${i}-${searchNumber}`" :id="i" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+              <ParticipantInner :item="item" :index="`leaders-${i}-${searchNumber}`" :id="i" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
           <template v-if="participants.items">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.items" :key="`items-${i}-${searchNumber}`">
-              <ParticipantInner @set-loading="loading = true" :item="item" :index="`items-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+              <ParticipantInner :item="item" :index="`items-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
         </div>
@@ -388,7 +384,7 @@ export default {
 
     async onParticipate() {
       if (!this.user) {
-        this.$toasted.error('Пожалуйста авторизуйтесь');
+        this.$toasted.error(this.$t('auth-please'));
         return;
       }
 
@@ -422,7 +418,7 @@ export default {
           }).render('#paypal-btn');
         })
       } else {
-        this.$toasted.error('Укажите минимум 1 фото');
+        this.$toasted.error(this.$t('upload-1'));
       }
     },
 

@@ -184,6 +184,13 @@ export default {
           this.setLinePosition();
         }, 500);
       });
+    },
+
+    '$i18n.locale': {
+      immediate: true,
+      handler() {
+        document.title = this.$t('page-title');
+      }
     }
   },
 
