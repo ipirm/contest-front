@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="btn_like" @click="likePlease()" v-if="!user || item.user.id != user.id" :class="{active: user && item.user.likes.find(i => i.user_id ? i.user_id == user.id : false) }">
+      <div class="btn_like" @click="likePlease()" v-if="!user || item.user.id != user.id" :class="{active: !firstTime ? liked : user && item.user.likes.find(i => i.user_id ? i.user_id == user.id : false) }">
         <img svg-inline class="icon svg-path-color" src="@/assets/icons/btn-like.svg" alt="example" />
       </div>
     </div>
@@ -146,6 +146,8 @@ export default {
         }
       },
 
+      liked: false,
+      firstTime: true,
       rollInterval: null
     }
   },
@@ -183,7 +185,13 @@ export default {
     },
 
     likePlease() {
-      if (this.user) this.like({userId: this.item.user.id, isLike: !this.item.user.likes.find(i => i.user_id ? i.user_id == this.user.id : false)})
+      if (this.user) {
+        this.$emit('set-loading');
+        this.firstTime = false;
+        const liked = !this.item.user.likes.find(i => i.user_id ? i.user_id == this.user.id : false)
+        this.liked = liked;
+        this.like({userId: this.item.user.id, isLike: liked})
+      }
       else this.$root.$emit('auth')
     }
   }

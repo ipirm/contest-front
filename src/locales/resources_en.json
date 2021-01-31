@@ -1,7 +1,7 @@
 {
     "header": {
         "index": "Main",
-        "about": "About The Contest",
+        "about": "About the Contest",
         "rules": "Rules",
         "account": "Account",
         "logout": "Logout",
@@ -19,7 +19,7 @@
 
     "footer": {
         "index": "Main",
-        "about": "About The Contest",
+        "about": "About the Contest",
         "rules": "Rules"
     },
 
@@ -31,21 +31,22 @@
     },
 
     "text-page": {
-        "about": "About The Contest",
+        "about": "About the Contest",
         "rules": "Rules",
 
-        "about-content": "<p><b>Beauty Battle Queen</b> is a unique, unprecedented beauty contest in which the winners are determined by the Internet community, not by a jury.<br><br>The absence of a jury ensures the highest possible level of impartiality and fairness of choice winners. Any user of the social network Facebook, Instagram, Vkontakte or You Tube can take part in the selection of the winners of the competition by simply clicking \"like\" on the photographs chosen by them.<br><br>Our principle is simple, <i>“Those who will win will be chosen by society.”</i><br><br>Along with the opportunity to get on the front pages of magazines and movies, to become famous and famous, the winners of the <b>Beauty Battle Queen</b> competition also receive serious cash prizes for winning the competition. The prize fund of the <b>Beauty Battle Queen</b> contest is equal to 30% of the total amount of fees paid by all contestants around the world and can reach impressive amounts.<br><br>The prize fund is distributed as follows:</p><ul><li>1. first place - 15% of the total fees paid by all participants;</li><li>2. second place - 10% of the total fees paid by all participants;</li><li>3. third place - 5% of the total amount of fees.</li></ul><br><p>If you are over 18 years old, you consider yourself attractive and want to get the opportunity to become famous and receive a cash prize, then Beauty Battle Queen is your opportunity.<br><br>Keep in touch: <a target=\"blank\" href=\"mail:email@beautybattle.net\">email@beautybattle.net</a></p>",
-        "rules-content": "<ul> <li> 1. The participant must be at least 18 years old. </li> <li> 2. To register as a contest participant, you must use your profile in any of the following social networks on the Internet: </li> <li class = \"inner\"> - Facebook; </li> <li class = \"inner\"> - VKontakte; </li> <li class = \"inner\"> - Google; </li> <li> 3. Registration for participation in the competition is allowed at any time from the beginning to the full end of the competition. </li> <li> 4. The cost of participation in the competition is 10 US dollars and is paid at a time during the registration process for participation in the competition. </li> <li> 5. Each participant has the right to place up to 6 of her photos on her profile, subject to the requirements provided for by these rules. </li> <li class = \"inner\"> - Only photos showing the participant herself are allowed to be placed on the profile. It is not allowed to post any photos on the profile of the participant, showing anyone else, except the participant herself; </li> <li class = \"inner\"> - Posting on the profile of photos in nude or in any other obscene form is not allowed; </ li > <li class = \"inner\"> - If one or more photos are found on the profile of a participant that do not meet the requirements of these rules, or contradict generally accepted norms and/or principles of morality, the profile of such a participant will be blocked by the administration of the competition without prior warning to its user, and the participant will be deprived of the right to participate in the competition, without refund of the cost of participation. </li> <li> 6. Regardless of the results of the competition, the cost of participation in the competition is non-refundable. The cost of participation in the competition will also not be refunded if a participant is disqualified (deprived of the right to participate in the competition). </li> <li> 7. The duration of the competition is 90 calendar days. The start and end date of the competition is displayed on the official website <a href=\"https://www.beautybattle.net\"> www.beautybattle.net </a> </li> <li> 8. Users of any of the social networks listed in clause 2 of these rules will have the right to take part in the selection of the winners of the competition by putting a \"like\" on the profiles of the participants, which the corresponding user of the social network gives their preference to. </li> <li> 9. The participants with the most likes are ranked 1st, 2nd and 3rd, respectively. </li> <li> 10. The amount of money prizes for the winners are calculated as a percentage of the total amount of money paid by all participants in the competition for their participation and are determined as follows: </li> <li class = \"inner\"> First place - 15% (fifteen percent); </ li> <li class = \"inner\"> Second place - 10% (ten percent); </li> <li class = \"inner\"> Third place - 5% (five percent), </li> <li> from the total amount of cash received as a result of the participation fees paid by the participants. </li> <li> 11. Acceptance of the terms of these rules is mandatory in order to be admitted to registration as a participant and/or as a voter. </li> </ul>"
+        "about-content": "<p> <b> Beauty Battle Queen </b> is a unique, unprecedented beauty contest in which the winners are determined by the Internet community, not by a jury. <br> <br> The absence of a jury ensures the highest possible level of impartiality and fairness in choosing the winners. Any user of Facebook, Instagram, Vkontakte or You Tube can take part in the selection of the winners in the competition by simply clicking \"like\" on the photographs chosen by him/her. <br> <br> Our principle is simple, <i>“The winners will be chosen by the society”</i> <br> <br> Along with the opportunity to get on the front pages of magazines and in movies and become famous, the winners of the <b>Beauty Battle Queen</b> contest will also receive sizable cash prizes for winning the competition. The prize fund of the <b>Beauty Battle Queen</b> contest is equal to 30% of the total amount of fees paid by all contestants around the world and can reach a sizable amount. <br> <br> The prize fund is distributed as follows: </p> <ul> <li class = 'pseudo-inner'> 1. First place - 15% of the total fees paid by all participants; </li> <li class = 'pseudo-inner'> 2. Second place - 10% of the total fees paid by all participants; </li> <li class = 'pseudo-inner'> 3. Third place - 5% of the total amount of fees. </li> </ul> <br> <p> If you are over 18 years old, consider yourself good looking and want to get the opportunity to become famous and receive a cash prize, then Beauty Battle Queen is yours opportunity. <br> <br> Contact us: <a target=\"blank\" href=\"mailto:email@beautybattle.net\"> email@beautybattle.net </a> </p>",
+        "rules-content": "<ul> <li> 1. The competitor must be at least <span class = \"important\"> 18 years old. </li> <li class = \"before-inner\"> 2. To register as a contest participant, you must use your own profile in any of the following social networks on the Internet: </li> <li class = \"inner\"> - Facebook; </li> <li class = \"inner\"> - VKontakte; </li> <li class = \"inner\"> - Google; </li> <li> 3. Competition for women only </li> <li> 4. Registration for participation in the competition is allowed at any time from the beginning till the end of the competition. </li> <li> 5. The cost of participation in the competition is USD 10 and is paid during the registration for participation in the contest. </li> <li class = 'before-inner'> 6. Each participant has the right to put up to 6 of her photos on her profile, subject to the requirements indicated in these rules. </li> <li class = \"inner\"> - Only genuine photos of the participant are allowed to be uploaded to the profile. It is not allowed to post any photos on the profile of the participant, showing anyone else, except the participant herself; </li> <li class = \"inner\"> - Posting on the profile of photos in nude or in any other obscene form is not allowed; </ li > <li class = \"inner\"> - If one or more photos are found on the profile of a participant that do not meet the requirements of these rules, or contradict generally accepted norms and/or principles of morality, the profile of such a participant will be blocked by the administration of the competition without prior warning to its user, and the participant will be deprived of the right to participate in the competition, with no refund of the cost of participation. </li> <li class = 'after-inner'> 7. Regardless of the results of the competition, the cost of participation in the competition is non-refundable. The cost of participation in the competition will also not be refunded if a participant is disqualified (deprived of the right to participate in the competition). </li> <li> 8. The duration of the competition is 90 calendar days. The start and end date of the competition is displayed on the official website <a href=\"https://www.beautybattle.net\"> www.beautybattle.net </a> </li> <li> 9. Users of any of the social networks listed in clause 2 of these rules will have the right to take part in the selection of the winners of the competition by putting a \"like\" on the profiles of the participants, which the corresponding user of the social network gives their preference to. </li> <li> 10. The members with the most likes are ranked 1st, 2nd and 3rd respectively. </li> <li class = 'before-inner'> 11. The amount of cash prizes for the winners are calculated as a percentage of the total amount of money paid by all contestants in the competition for their participation and are determined as follows: </li> <li class = \"inner\"> First place - 15% (fifteen percent); </ li> <li class = \"inner\"> Second place - 10% (ten percent); </li> <li class = \"inner\"> Third place - 5% (five percent), <br> of total cash received as a result of payment of participation fees by the participants. </li> <li class = 'after-inner'> 12. Acceptance of the terms of these rules is mandatory in order to be admitted to registration as a contestant and/or as a voter. </li> </ul>"
     },
 
     "description": {
         "to-end": "Until the end",
+        "to-start": "Until the beginning",
         "created": "Created",
         "starts": "Runs from",
         "to": "to",
         "place": "place",
         "participate": "Participate",
-        "prizes-title": "Prize to the winners of the total amount collected"
+        "prizes-title": "Cash prize to the winners of the total amount collected"
     },
 
     "participate": {
@@ -114,12 +115,12 @@
     "you-found": "You have found",
 
     "sorting": {
-        "by-likes": "By number of likes",
-        "by-created-date": "By novelty",
+        "by-likes": "Number of likes",
+        "by-created-date": "Novelty",
         "show-all": "Show all",
-        "user-likes": "By your choice",
+        "user-likes": "Your choice",
         "placeholder": "Sort by",
-        "random": "Randomly"
+        "random": "Random"
     },
 
     "toasted": {

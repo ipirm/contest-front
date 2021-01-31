@@ -809,6 +809,42 @@ footer {
       color: #000000;
       opacity: 0.5;
       white-space: nowrap;
+
+      .en {
+        position: relative;
+        margin-right: 7px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          display: block;
+          top: 3px;
+          right: 0;
+          transform: translateX(100%);
+          font-size: 9px;
+          line-height: 100%;
+        }
+
+        &.st {
+          &:after {
+            content: 'st'
+          }
+        }
+
+        &.nd {
+          margin-right: 9px;
+
+          &:after {
+            content: 'nd'
+          }
+        }
+
+        &.rd {
+          &:after {
+            content: 'rd'
+          }
+        }
+      }
     }
   }
 }
@@ -869,6 +905,7 @@ footer {
   color: #E0AF0C;
   transition: height .2s ease;
   overflow: hidden;
+  text-align: justify;
 }
 .description_days {
   display: flex;
@@ -1186,6 +1223,7 @@ body {
   padding-bottom: 50px;
   width: fit-content;
   margin: 0 -10px;
+  position: relative;
 
   &.all {
   	&:after {
@@ -1995,13 +2033,45 @@ img[lazy=loading], .swiper-lazy {
 }
 .text-page {
   padding: 106px 20px 150px;
-  max-width: 720px;
+  max-width: 800px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 
   ul {
     list-style-type: none;
+  }
+
+  li {
+    margin-bottom: 40px;
+    font-size: 16px;
+    line-height: 29px;
+    font-weight: 500;
+    font-family: Commissioner;
+    text-align: justify;
+
+    &.inner {
+      margin-left: 10px;
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    &.pseudo-inner {
+      font-weight: 400;
+      margin-bottom: 5px;
+    }
+
+    &.before-inner {
+      margin-bottom: 0;
+    }
+
+    &.after-inner {
+      margin-top: 40px;
+    }
+  }
+
+  .important {
+    color: #c75c5c;
   }
 }
 .text-page_title h1 {
@@ -2032,24 +2102,15 @@ img[lazy=loading], .swiper-lazy {
   margin-bottom: 26px;
 }
 
-.text-page {
-  li {
-    margin-bottom: 5px;
-
-    &.inner {
-      margin-left: 20px;
-    }
-  }
-}
-
 .text-page p {
   font-family: Commissioner;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
   color: #000000;
   margin-bottom: 20px;
+  text-align: justify;
 }
 .text-page_title span {
   height: 17px;
@@ -2296,6 +2357,11 @@ img[lazy=loading], .swiper-lazy {
 	justify-content: center;
 	align-items: center;
 	outline: none;
+    margin-right: 48px;
+    border: 1px solid #BCBCBC;
+    box-sizing: border-box;
+    border-radius: 63px;
+    padding: 4px 10px;
 
 	svg, input {
 		outline: none;
@@ -2309,6 +2375,7 @@ img[lazy=loading], .swiper-lazy {
 	outline: none;
 	text-align: left;
 	transition: width .2s ease;
+    margin-right: 0;
 
 	&.active {
 		width: 120px;

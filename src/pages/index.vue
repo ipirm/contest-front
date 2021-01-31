@@ -22,20 +22,21 @@
         </div>
         <div class="description_days">
           <div>
-            <countdown :time="Math.max(endDateTimestamp - startDateTimestamp + (startDateTimestamp - moment().unix() * 1000 < 0 ? 0 : startDateTimestamp - moment().unix() * 1000), 0)" :transform="transform" class="description_days_title style_title">
+            <countdown :time="countdown" :transform="transform" class="description_days_title style_title">
               <template slot-scope="props">
                 {{ props.days }}{{ $t('timer.d') }} : {{ props.hours }}{{ $t('timer.h') }} : {{ props.minutes }}{{ $t('timer.m') }}
                 : {{ props.seconds }}{{ $t('timer.s') }}
               </template>
             </countdown>
-            <p class="description_days_to-end style_text" v-t="'description.to-end'" />
+            <p class="description_days_to-end style_text" v-t="'description.to-start'" v-if="!contestStarted" />
+            <p class="description_days_to-end style_text" v-t="'description.to-end'" v-else />
           </div>
           <div class="description_prizes">
             <span class="title" v-t="'description.prizes-title'" />
             <div class="prizes">
               <div class="prize" v-for="(place, i) in places" :key="i">
                 <div class="cost">{{ place.name }}%</div>
-                <div class="place">{{ i+1 }} {{ $t('description.place') }}</div>
+                <div class="place"><span :class="{en: locale === 'EN', st: locale === 'EN' && i === 0, nd: locale === 'EN' && i === 1, rd: locale === 'EN' && i === 2}">{{ i+1 }}</span> {{ $t('description.place') }}</div>
               </div>
             </div>
           </div>
@@ -138,22 +139,26 @@
           </div>
         </div>
         <div class="participate_wrapper" v-if="participants" :class="{all: loadedAllParticipants}">
+          <loading :active.sync="loading"
+                   :can-cancel="false"
+                   :is-full-page="false"></loading>
+          
           <div class="participate_wrapper_overlay" v-if="participants.linkItem">
-            <ParticipantInner :item="participants.linkItem" :found="true" :index="`linkItem-1-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+            <ParticipantInner @set-loading="loading = true" :item="participants.linkItem" :found="true" :index="`linkItem-1-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
           </div>
           <template v-if="participants.firstConcerts">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.firstConcerts" :key="`firstConcerts-${i}-${searchNumber}`">
-              <ParticipantInner :item="item" :index="`firstConcerts-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+              <ParticipantInner @set-loading="loading = true" :item="item" :index="`firstConcerts-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
           <template v-if="participants.leaders">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.leaders" :key="`leaders-${i}-${searchNumber}`">
-              <ParticipantInner :item="item" :index="`leaders-${i}-${searchNumber}`" :id="i" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+              <ParticipantInner @set-loading="loading = true" :item="item" :index="`leaders-${i}-${searchNumber}`" :id="i" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
           <template v-if="participants.items">
             <div class="participate_wrapper_overlay" v-for="(item, i) in participants.items" :key="`items-${i}-${searchNumber}`">
-              <ParticipantInner :item="item" :index="`items-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
+              <ParticipantInner @set-loading="loading = true" :item="item" :index="`items-${i}-${searchNumber}`" :activeLike="activeLike" :activePhoto="activePhoto" @active-pop-up="activePopUp = $event" @set-active-sort="activeSort = $event" @close-popup-parent="closePopupParent()" @mouse-over="mouseOver($event)" @show-pop-up="showPopUp($event)" @show-photo="activePhoto = $event" @close-pop-up="closePopUp($event)" @active-like="activeLike = $event" @set-active-clip="activeClip = $event" :activeClip="activeClip" :activePopUp="activePopUp" />
             </div>
           </template>
         </div>
@@ -187,6 +192,7 @@ export default {
       infinityDistance: 100,
       infinityKey: 1,
       loadedAllParticipants: false,
+      loading: false,
 
       activePopUp: false,
       activeLike: false,
@@ -252,10 +258,20 @@ export default {
   },
 
   computed: {
-    ...mapState(['user', 'concert', 'participants', 'searchQuery', 'searchNumber']),
+    ...mapState(['user', 'locale', 'concert', 'participants', 'searchQuery', 'searchNumber']),
 
     moment() {
       return moment
+    },
+
+    contestStarted() {
+      return this.startDateTimestamp < moment().unix() * 1000
+    },
+
+    countdown() {
+      if (this.contestStarted)
+        return this.endDateTimestamp - this.moment().unix() * 1000
+      else return this.startDateTimestamp - this.moment().unix() * 1000
     },
 
     startDateTimestamp() {
@@ -278,6 +294,13 @@ export default {
   },
 
   watch: {
+    participants: {
+      deep: true,
+      handler() {
+        this.loading = false;
+      }
+    },
+
     concert() {
       this.$nextTick(() => {
         this.onResize();
