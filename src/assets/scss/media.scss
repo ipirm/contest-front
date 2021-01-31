@@ -505,23 +505,23 @@
       top: 50%;
       right: 0;
       transform: translateY(-50%);
+      margin-right: 10px;
     }
     
     .header_search_input {
+      margin-right: 0;
+
       &.active {
         width: 95px;
       }
     }
 
     input {
-      width: 0;
+      width: 46px;
     }
   }
   .header_util_container .dropdown-icon {
     margin-right: 0;
-  }
-  .header_login-button, .header_search_input {
-    margin-right: 10px;
   }
   .text-page {
     padding-top: 40px;
