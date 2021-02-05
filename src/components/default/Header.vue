@@ -140,7 +140,6 @@
   </header>
 </template>
 <script>
-import {debounce} from '@/utils/debounce'
 import {mapState, mapMutations, mapActions} from 'vuex'
 
 export default {
@@ -216,7 +215,7 @@ export default {
     searchStuff() {
       this.setSearchLoading(true);
 
-      if (this.$route.path != '/') 
+      if (this.$route.path != '/')
         this.$router.push('/').catch(() => {});
 
       this.$nextTick(() => {

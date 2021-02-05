@@ -14,7 +14,7 @@
       <div class="participates_item_header">
         <div class="like svg-path-color" :class="{hovered: activeLike == index}" @mouseover="$emit('mouse-over', index)" @mouseleave="$emit('active-like', -1)">
           <img svg-inline class="icon" src="@/assets/icons/like.svg" alt="example" />
-          <p class="style_text">{{ item.likesCount ? item.likesCount.toString() : '0' }}</p>
+          <p class="style_text">{{ (item.likesCount + (liked ? 1 : 0)).toString() }}</p>
           <div class="likes-tooltip" v-if="item.likesCount && index == activeLike">
             <div class="likes-tooltip-wrapper">
               <template v-for="(like, k) in item.user.likes">
@@ -54,7 +54,7 @@
               <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/btn-exit.svg" alt="example" />
             </a>
             <div class="likes_popup_title">
-              <p class="likes_popup_title_number">{{ item.likesCount }}</p>
+              <p class="likes_popup_title_number">{{ (item.likesCount + (liked ? 1 : 0)).toString() }}</p>
               <p class="likes_popup_title_voted" v-t="'likes.voted'" />
               <p class="likes_popup_title_subtitle">{{ $i18n.locale === 'RU' ? concert.title : ($i18n.locale === 'EN' ? concert.title__en : '') }}</p>
             </div>
@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="btn_like" @click="likePlease()" v-if="!user || item.user.id != user.id" :class="{active: !firstTime ? liked : user && item.user.likes.find(i => i.user_id ? i.user_id == user.id : false) }">
+      <div class="btn_like" @click="likeThis" v-if="!user || item.user.id != user.id" :class="{active: liked }">
         <img svg-inline class="icon svg-path-color" src="@/assets/icons/btn-like.svg" alt="example" />
       </div>
     </div>
@@ -102,7 +102,7 @@
                   c0.141,0.194,0.364,0.574,0.608,0.543c0.397-0.051,0.469-1.591,0.223-2.107C5.741,4.688,5.506,4.615,5.263,4.544
                   C5.345,4.026,7.56,3.918,7.918,4.32c0.52,0.584-0.36,2.21,0.352,2.684c1-0.524,1.854-2.718,1.854-2.718l2.398,0.015
                   c0,0-0.375,1.186-0.768,1.712c-0.229,0.308-0.989,0.994-0.959,1.503C10.819,7.919,11.437,8.311,11.755,8.635z"/>
-              </svg>            
+              </svg>
             </a>
           </div>
         </div>
@@ -111,7 +111,8 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import {debounce} from '@/utils/debounce'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import { Facebook, Twitter, Reddit, Telegram, WhatsApp, Pinterest } from 'vue-socialmedia-share';
 
 export default {
@@ -152,6 +153,16 @@ export default {
     }
   },
 
+  created() {
+    // checking if the current user has liked the participant
+    // if liked
+    console.log(this.item.user.likes.findIndex(p => p.user_id == this.user.id) !== -1)
+    if (this.item.user.likes.findIndex(p => p.user_id == this.user.id) !== -1) {
+      this.reduceLikedBy1({id: this.item.userId, type: this.index.split('-')[0]});
+      this.liked = true;
+    }
+  },
+
   computed: {
     ...mapState(['user', 'concert']),
 
@@ -162,6 +173,7 @@ export default {
 
   methods: {
     ...mapActions(['like']),
+    ...mapMutations(['reduceLikedBy1']),
 
     startRolling() {
       if (window.innerWidth > 540 && this.item.images.length > 1) {
@@ -184,15 +196,18 @@ export default {
       this.$emit('set-active-clip', false);
     },
 
-    likePlease() {
+    likeThis() {
       if (this.user) {
-        const liked = this.firstTime ? !this.item.user.likes.find(i => i.user_id ? i.user_id == this.user.id : false) : !this.liked;
-        this.firstTime = false;
-        this.liked = liked;
-        this.like({userId: this.item.user.id, isLike: liked, participantType: this.index.split('-')[0]})
+        this.liked = !this.liked;
+        this.likePlease();
+      } else {
+        this.$root.$emit('auth')
       }
-      else this.$root.$emit('auth')
-    }
+    },
+
+    likePlease: debounce(function() {
+      this.like({participantId: this.item.userId, isLike: this.liked})
+    }, 500)
   }
 }
 

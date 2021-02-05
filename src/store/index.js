@@ -86,15 +86,13 @@ export default new Vuex.Store({
 			state.userConcerts = concerts;
 		},
 
-		like (state, data) {
-			if (state.user && state.participants && state.participants[data.type]) {
-				state.participants[data.type].find(p => p.userId == data.id).likesCount++;
-			}
-		},
-
-		dislike (state, data) {
-			if (state.user && state.participants && state.participants[data.type]) {
-				state.participants[data.type].find(p => p.userId == data.id).likesCount--;
+		reduceLikedBy1 (state, data) {
+			if (state.user &&
+				state.participants &&
+				state.participants[data.type]) {
+					state.participants[data.type].find(p => p.userId == data.id).likesCount--;
+					state.participants[data.type].push({});
+					state.participants[data.type].pop();
 			}
 		}
 	},
@@ -105,6 +103,9 @@ export default new Vuex.Store({
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 				}
+			}).catch(() => {
+				localStorage.removeItem('auth_token');
+				location.reload();
 			});
 			if (res.data) {
 				commit('setUser', res.data);
@@ -138,7 +139,7 @@ export default new Vuex.Store({
 					commit('setParticipants', res.data);
 				}
 			} else dispatch('getParticipants', data.query);
-		
+
 			commit('setSearchLoading', false);
 		},
 
@@ -243,15 +244,9 @@ export default new Vuex.Store({
 
 		async like({state, commit}, data) {
 			if (state.user) {
-				if (data.isLike) {
-					commit('like', {type: data.participantType, id: data.userId.toString()})
-				} else {
-					commit('dislike', {type: data.participantType, id: data.userId.toString()})
-				}
-
 				await api.post(data.isLike ? 'api/like' : 'api/like/delete', {
 					concertId: '1',
-					userId: data.userId.toString()
+					userId: data.participantId.toString()
 				}).catch(e => {
 					this._vm.$toasted.error(i18n.t('toasted.error.like'));
 					console.log(e);
@@ -277,7 +272,7 @@ export default new Vuex.Store({
 			let formData = new FormData();
 			formData.append('concertId', '1');
 			payload.map(f => f.file).forEach(f => {
-				formData.append('files', f);	
+				formData.append('files', f);
 			});
 
 			await api.postFormData('api/participation', formData)

@@ -371,7 +371,7 @@
   }
   .participate_popup {
     padding: 31px 15px 15px;
-    height: 500px;
+    max-height: 80vh;
     position: relative;
 
     .btn-exit-aligne {
@@ -507,7 +507,7 @@
       transform: translateY(-50%);
       margin-right: 10px;
     }
-    
+
     .header_search_input {
       margin-right: 0;
 
@@ -574,7 +574,7 @@
   .user_balans_maining {
     margin-right: 0;
   }
-  .user_balans_text { 
+  .user_balans_text {
     margin-right: 5px;
     margin-top: 6px;
   }
