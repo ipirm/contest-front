@@ -156,8 +156,7 @@ export default {
   created() {
     // checking if the current user has liked the participant
     // if liked
-    console.log(this.item.user.likes.findIndex(p => p.user_id == this.user.id) !== -1)
-    if (this.item.user.likes.findIndex(p => p.user_id == this.user.id) !== -1) {
+    if (this.user && this.item.user.likes.findIndex(p => p.user_id == this.user.id) !== -1) {
       this.reduceLikedBy1({id: this.item.userId, type: this.index.split('-')[0]});
       this.liked = true;
     }

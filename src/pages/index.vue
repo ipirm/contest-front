@@ -100,7 +100,7 @@
                 </div>
               </template>
               <p v-t="'participate.cost'" />
-              <span class="participate_popup_text-style"> $10 </span>
+              <span class="participate_popup_text-style">{{ isFirst5Days ? $t('free') : '$5' }}</span>
             </div>
           </div>
         </div>
@@ -126,7 +126,7 @@
               { order_active: activeSort }
             ]" @click.stop="activeSort = !activeSort">
             <div class="participates_util_order_wrapper">
-              <p class="active-selected" v-t="activeSelected === this.$t('sorting.show-all') ? this.$t('sorting.placeholder') : activeSelected" />
+              <p class="active-selected">{{ activeSelected === this.$t('sorting.show-all') ? this.$t('sorting.placeholder') : activeSelected }}</p>
               <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/arrow-bottom.svg" alt="example" />
             </div>
             <div class="participates_util_options">
@@ -270,9 +270,16 @@ export default {
       else return this.startDateTimestamp - this.moment().unix() * 1000
     },
 
+    isFirst5Days() {
+      return (moment().unix() * 1000 > this.startDateTimestamp && moment().unix() * 1000 < this.startDateTimestamp + 60 * 60 * 24 * 5 * 1000)
+    },
+
     startDateTimestamp() {
-      const date = this.concert.startDate.split('.');
-      return (new Date(date[2], date[1] - 1, date[0])).getTime();
+      if (this.concert) {
+        const date = this.concert.startDate.split('.');
+        return (new Date(date[2], date[1] - 1, date[0])).getTime();
+      }
+      return 0;
     },
 
     endDateTimestamp() {
@@ -389,34 +396,41 @@ export default {
       }
 
       if (this.files.length) {
-        this.showPaypal = true;
-        this.$nextTick(() => {
-          window.paypal.Buttons({
-            createOrder: function (data, actions) {
-              // This function sets up the details of the transaction, including the amount and line item details.
-              return actions.order.create({
-                purchase_units: [{
-                  amount: {
-                    value: '10'
+        if (!this.isFirst5Days) {
+          this.showPaypal = true;
+          this.$nextTick(() => {
+            window.paypal.Buttons({
+              createOrder: function (data, actions) {
+                // This function sets up the details of the transaction, including the amount and line item details.
+                return actions.order.create({
+                  purchase_units: [{
+                    amount: {
+                      value: '10'
+                    }
+                  }]
+                });
+              },
+              onApprove: (data, actions) => {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(async details => {
+                  if (details.error === 'INSTRUMENT_DECLINED') {
+                    this.$toasted.error(this.$t('paypal.decline'));
+                  } else {
+                    await this.participate(this.files).then(() => {
+                      this.activeLoad = false;
+                      this.showParticipateBtn = false;
+                    });
                   }
-                }]
-              });
-            },
-            onApprove: (data, actions) => {
-              // This function captures the funds from the transaction.
-              return actions.order.capture().then(async details => {
-                if (details.error === 'INSTRUMENT_DECLINED') {
-                  this.$toasted.error(this.$t('paypal.decline'));
-                } else {
-                  await this.participate(this.files).then(() => {
-                    this.activeLoad = false;
-                    this.showParticipateBtn = false;
-                  });
-                }
-              });
-            }
-          }).render('#paypal-btn');
-        })
+                });
+              }
+            }).render('#paypal-btn');
+          })
+        } else {
+          await this.participate(this.files).then(() => {
+            this.activeLoad = false;
+            this.showParticipateBtn = false;
+          });
+        }
       } else {
         this.$toasted.error(this.$t('upload-1'));
       }
