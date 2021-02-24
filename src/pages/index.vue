@@ -18,7 +18,7 @@
             <p>{{ $t('description.starts') }} {{ moment(concert.startDate, 'DD.MM.YYYY').format('DD MMMM YYYY') + ($i18n.locale === 'EN' ? '' : 'г') }} {{ $t('description.to') }} {{ moment(concert.endDate, 'DD.MM.YYYY').format('DD MMMM YYYY') + ($i18n.locale === 'EN' ? '' : 'г') }}</p>
           </div>
           <p class="description_text_main-text style_text" ref="descriptionText" :class="{active: isTextShown}" v-html="$i18n.locale === 'RU' ? concert.description : ($i18n.locale === 'EN' ? concert.description__en : '')"></p>
-          <div class="btn_style btn_contest_participate" v-if="user && user.concertsUsers && !user.concertsUsers.length || !user" @click="activeLoad = true" v-show="showParticipateBtn" v-t="'description.participate'" />
+          <div class="btn_style btn_contest_participate" v-if="user && user.concertsUsers && !user.concertsUsers.length || !user" @click="onParticipateIndex" v-show="showParticipateBtn" v-t="'description.participate'" />
         </div>
         <div class="description_days">
           <div>
@@ -100,7 +100,7 @@
                 </div>
               </template>
               <p v-t="'participate.cost'" />
-              <span class="participate_popup_text-style">{{ isFirst5Days ? $t('free') : '$5' }}</span>
+              <span class="participate_popup_text-style">{{ isFirstDays ? $t('free') : '$5' }}</span>
             </div>
           </div>
         </div>
@@ -270,8 +270,9 @@ export default {
       else return this.startDateTimestamp - this.moment().unix() * 1000
     },
 
-    isFirst5Days() {
-      return (moment().unix() * 1000 > this.startDateTimestamp && moment().unix() * 1000 < this.startDateTimestamp + 60 * 60 * 24 * 5 * 1000)
+    isFirstDays() {
+      return false;
+      // return (moment().unix() * 1000 > this.startDateTimestamp && moment().unix() * 1000 < this.startDateTimestamp + 60 * 60 * 24 * 15 * 1000)
     },
 
     startDateTimestamp() {
@@ -342,6 +343,12 @@ export default {
       }
     },
 
+    onParticipateIndex() {
+      if (!this.user)
+        this.$root.$emit('auth')
+      else this.activeLoad = true;
+    },
+
     closePopupParent() {
       this.activePhoto = -1;
     },
@@ -396,7 +403,7 @@ export default {
       }
 
       if (this.files.length) {
-        if (!this.isFirst5Days) {
+        if (!this.isFirstDays) {
           this.showPaypal = true;
           this.$nextTick(() => {
             window.paypal.Buttons({

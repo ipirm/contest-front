@@ -141,6 +141,7 @@
 </template>
 <script>
 import {mapState, mapMutations, mapActions} from 'vuex'
+import {debounce} from '@/utils/debounce'
 
 export default {
   name: "Header",
@@ -168,7 +169,7 @@ export default {
     ...mapState(['user', 'locale']),
 
     isLoggedIn() {
-      return this.user ? true : false;
+      return !!this.user;
     },
 
     apiUrl() {
@@ -215,20 +216,20 @@ export default {
     searchStuff() {
       this.setSearchLoading(true);
 
-      if (this.$route.path != '/')
+      if (this.$route.path !== '/')
         this.$router.push('/').catch(() => {});
 
       this.$nextTick(() => {
         debounce(async () => {
           this.setPage(0);
-          this.search({ searchString: this.searchInput.replace(' ', '') });
+          await this.search({searchString: this.searchInput.replace(' ', '')});
         }, 250)();
       });
     },
 
     changeLang() {
-      if (this.$i18n.locale == 'RU') this.setLocale('EN');
-      else if (this.$i18n.locale == 'EN') this.setLocale('RU');
+      if (this.$i18n.locale === 'RU') this.setLocale('EN');
+      else if (this.$i18n.locale === 'EN') this.setLocale('RU');
     },
 
     goToLink(link) {
