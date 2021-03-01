@@ -42,10 +42,10 @@
           </div>
         </div>
       </div>
-      <div class="overlay-swiper participate-slider" v-show="activeLoad" v-body-scroll-lock="activeLoad">
+      <div class="overlay-swiper participate-slider" v-show="activeLoad">
         <div class="overlay-swiper__bg" @click="activeLoad = false"></div>
         <div class="overlay-swiper-row">
-          <div class="participate_popup">
+          <div class="participate_popup" v-body-scroll-lock="activeLoad">
             <a class="btn-exit-aligne" @click="activeLoad = false">
               <img svg-inline class="icon svg-stroke-color" src="@/assets/icons/btn-exit.svg" alt="example" />
             </a>
@@ -100,7 +100,7 @@
                 </div>
               </template>
               <p v-t="'participate.cost'" />
-              <span class="participate_popup_text-style">{{ isFirstDays ? $t('free') : '$5' }}</span>
+              <span class="participate_popup_text-style">{{ isFirstDays || isFree ? $t('free') : '$5' }}</span>
             </div>
           </div>
         </div>
@@ -185,6 +185,8 @@ export default {
 
   data() {
     return {
+      isFree: true,
+
       infinityDistance: 100,
       infinityKey: 1,
       loadedAllParticipants: false,
@@ -232,6 +234,7 @@ export default {
   },
 
   created() {
+    moment.locale(this.$i18n.locale.toLowerCase());
     this.getConcert();
 
     if (!this.participants) {
@@ -245,8 +248,8 @@ export default {
     this.onResize();
 
     // paypal
-    if (!window.paypal) {
-      this.$loadScript("https://www.paypal.com/sdk/js?client-id=ASzvgL7insWzlrgvxuzQ-tBWvVeNrok_51h3ViD2RYCmOMJ8rwral1Nvux8DOMMQyIxfAcTXSwPKDK8d")
+    if (!window.paypal && !this.isFree) {
+      this.$loadScript("https://www.paypal.com/sdk/js?client-id=AQz9Pv7EbWbvk9_R2WT5j6UdP_DU-NzxQD5WFDhCRmx-ld9VlZ6uB1G_fr8itncYFnnDDUwn6OLAgYB9")
           .catch(() => {
             console.error('Paypal could not be loaded, please reload the page')
           })
@@ -312,6 +315,8 @@ export default {
     },
 
     '$i18n.locale'() {
+      moment.locale(this.$i18n.locale.toLowerCase())
+
       this.sortItems = [
         this.$t('sorting.by-likes'),
         this.$t('sorting.by-created-date'),
@@ -403,7 +408,7 @@ export default {
       }
 
       if (this.files.length) {
-        if (!this.isFirstDays) {
+        if (!this.isFirstDays && !this.isFree) {
           this.showPaypal = true;
           this.$nextTick(() => {
             window.paypal.Buttons({
@@ -412,7 +417,7 @@ export default {
                 return actions.order.create({
                   purchase_units: [{
                     amount: {
-                      value: '10'
+                      value: '5'
                     }
                   }]
                 });

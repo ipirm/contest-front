@@ -263,12 +263,10 @@
   .btn-exit-aligne {
     margin-bottom: 0px;
   }
-}
 
-@media (max-width: 700px) {
   .participate_popup {
     width: calc(100% - 30px);
-    height: unset;
+    height: 500px;
     padding-bottom: 15px;
 
     &_upload {
